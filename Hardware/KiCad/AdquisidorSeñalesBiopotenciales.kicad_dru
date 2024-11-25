@@ -1,0 +1,15 @@
+(version 1)
+(rule "Permite superposición courtyhard"
+	(constraint courtyard_clearance (min -1mm))
+	(condition "A.Do_not_Populate != B.Do_not_Populate")
+)
+
+(rule "Permite superposición silkscreen"
+	(constraint silk_clearance (min -1mm))
+	(condition "A.Do_not_Populate != B.Do_not_Populate")
+)
+
+(rule "Permite superposición fab"
+	(constraint physical_clearance (min -1mm))
+	(condition "A.Do_not_Populate != B.Do_not_Populate")
+)
