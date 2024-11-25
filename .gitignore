@@ -1,0 +1,7 @@
+# Archivos temporales de compilacion
+*.d
+*.o
+
+*.bin
+*.elf
+*.lst
