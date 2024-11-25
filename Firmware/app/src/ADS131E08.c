@@ -126,7 +126,7 @@ void ADS131E08_initialize(){
    UART_Send((int *) dato,1);
    delayMs(100);
    
-   ADS131E08_WREG(_CONFIG1_ADDRESS, 0x91);	// Establece la configuración por defecto del registro CONFIG1
+   ADS131E08_WREG(_CONFIG1_ADDRESS, 0x96);	// Establece la configuración por defecto del registro CONFIG1
 	delayMs(100);
    ADS131E08_WREG(_CONFIG2_ADDRESS, 0xF0);	// Establecer el registro CONFIG2
    
@@ -135,7 +135,7 @@ void ADS131E08_initialize(){
    ADS131E08_WREG(_CH2SET_ADDRESS, _CHSET_PD_MASK); // Apago el canal 2
    ADS131E08_WREG(_CH3SET_ADDRESS, _CHSET_PD_MASK); // Apago el canal 3
    ADS131E08_WREG(_CH4SET_ADDRESS, _CHSET_PD_MASK); // Apago el canal 4
-   ADS131E08_WREG(_CH5SET_ADDRESS, _CHSET_MUX_TEST_SIGNAL); // Apago el canal 5
+   ADS131E08_WREG(_CH5SET_ADDRESS, _CHSET_MUX_TEST_SIGNAL); // Establecer el canal 1 para el modo de TEST
    ADS131E08_WREG(_CH6SET_ADDRESS, _CHSET_PD_MASK); // Apago el canal 6
    ADS131E08_WREG(_CH7SET_ADDRESS, _CHSET_PD_MASK); // Apago el canal 7
    ADS131E08_WREG(_CH8SET_ADDRESS, _CHSET_PD_MASK); // Apago el canal 8
@@ -318,15 +318,21 @@ void ADS131E08_getChannelData(uint8_t *sampleCnt, uint32_t *data)
 
 	for(i=0; i<8; i++) // Leer 16 bits de datos por cada canal en 2 byte chunks
 	{
-		for(j=0; j<2; j++)
+		for(j=0; j<3; j++)
 		{
 			inByte = SPI_transfer(0x00);
-			data[i] = (data[i]<<8) | inByte; // Almacenar 32 bits de datos
+			data[i] = (data[i]<<8) | inByte; // Almacenar 24 bits de datos
 		}
 	}
 	
+   if (data[23] == 1) { // Pasar de 24 bits a 32 bits
+      data |= 0xFF000000;
+   } else {
+      data |= 0x00FFFFFF;
+   }
+   
 	ADS131E08_csHigh(); // Finalizar la comunicacion SPI
-	
+   
 	if(firstDataPacket == TRUE)
 	{
 		firstDataPacket = false;

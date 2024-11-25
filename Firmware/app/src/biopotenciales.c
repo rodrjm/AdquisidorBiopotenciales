@@ -105,10 +105,12 @@ int main(void)
       }
       if (leerDatos) {
          ADS131E08_getChannelData(&sampleCnt, channelData);
-         for(uint8_t i=0; i<8; i++)
+         /*for(uint8_t i=0; i<8; i++)
          {
-            UART_Send((int *) &channelData[i], 2);
-         }
+            UART_Send((int *) &channelData[i], 3);
+         }*/
+         UART_Send((int *) &channelData[0], 3);
+         delayUs(1000);
       }
 	}
 }
