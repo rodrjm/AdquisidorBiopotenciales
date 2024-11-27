@@ -97,6 +97,9 @@ int main(void)
       if (!(Board_TEC_GetStatus(BOARD_TEC_1))) {
          ADS131E08_signalDown();
          ADS131E08_initialize();
+         id=ADS131E08_getDeviceID();
+         UART_Send((int *) &id,1);
+         //ADS131E08_configureTestSignal();
          while(!(ADS131E08_isDataAvailable()));
          leerDatos = 1;
       }
@@ -105,11 +108,11 @@ int main(void)
       }
       if (leerDatos) {
          ADS131E08_getChannelData(&sampleCnt, channelData);
-         /*for(uint8_t i=0; i<8; i++)
+         for(uint8_t i=0; i<8; i++)
          {
             UART_Send((int *) &channelData[i], 3);
-         }*/
-         UART_Send((int *) &channelData[0], 3);
+         }
+         //UART_Send((int *) &channelData[0], 3);
          delayUs(1000);
       }
 	}

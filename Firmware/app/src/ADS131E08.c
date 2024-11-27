@@ -51,6 +51,11 @@ uint32_t boardStat;
 uint32_t channelData[8];
 
 /**
+ 	 * @brief Variable utilizada para guardar el ID del ADS
+*/
+uint8_t id;
+
+/**
  	 * @brief Indica si es el primer paquete de datos
 */
 bool firstDataPacket = false;
@@ -74,18 +79,18 @@ void ADS131E08_signalDown(){
 */
 void ADS131E08_initialize(){
    
-	delayMs(100);
+	//delayMs(100);
 	GPIO_setPinState(ADS_PWDN_PORT, ADS_PWDN_PIN, true); // Establece el ADS Power Down pin en HIGH
 	GPIO_setPinState(ADS_RST_PORT, ADS_RST_PIN, true);	// Establece el ADS Reset pin en HIGH
-      
-	delayMs(200);
+	delayMs(100);
+   
 	GPIO_setPinState(ADS_RST_PORT, ADS_RST_PIN, false);	//	Establece el ADS Reset pin en LOW
-	delayMs(100);
+	delayMs(10);
 	GPIO_setPinState(ADS_RST_PORT, ADS_RST_PIN, true);	// Establece el ADS Reset pin en HIGH
-	delayMs(100);
+	delayMs(10);
 	ADS131E08_sendCommand(_SDATAC);	// Se envía el comando SDATAC
 	ADS131E08_sendCommand(_STOP);	// Se envia el comando STOP
-	delayMs(100);
+	delayMs(10);
    /*
    ADS131E08_WREG(0x0D, 0x00);
    ADS131E08_WREG(0x0E, 0x00);
@@ -95,42 +100,32 @@ void ADS131E08_initialize(){
    delayMs(100);
    */
    ADS131E08_WREG(_CONFIG3_ADDRESS, _CONFIG3_DEFAULT);	// Establece la configuración por defecto del registro CONFIG3
-	delayMs(100);
+	//delayMs(100);
 	ADS131E08_WREG(_CONFIG1_ADDRESS, _CONFIG1_DEFAULT);	// Establece la configuración por defecto del registro CONFIG1
-	delayMs(100);
+	//delayMs(100);
 	ADS131E08_WREG(_CONFIG2_ADDRESS, _CONFIG2_DEFAULT);	// Establece la configuración por defecto del registro CONFIG2
-	delayMs(100);
+	//delayMs(100);
    
    for(uint8_t channel=1;channel<=8;channel++)
 	{
 		ADS131E08_WREG(_CH1SET_ADDRESS+(channel-1), _CHSET_MUX_INPUT_SHORT_TO_MID);	// Establece por defecto cada canal
 	}
    
-   delayMs(100);
+   //delayMs(100);
    sampleCounter = 0;
    firstDataPacket = true;
    ADS131E08_sendCommand(_START);	// Iniciar la adquisicion de datos
-   delayMs(100);
    ADS131E08_sendCommand(_RDATAC);  // Acceder al modo de lectura continua de datos
-   delayMs(100);
+   delayMs(10);
    isRunning = true;
    
-   delayMs(100);
+   //delayMs(100);
    ADS131E08_sendCommand(_SDATAC);	// Detener al modo de lectura continua de datos
    ADS131E08_sendCommand(_STOP);	// Detener la adquisicion de datos
-   delayMs(100);
-   
-   uint8_t dato[1];
-   dato[0] = ADS131E08_RREG(_ID_ADDRESS);
-   delayMs(100);
-   UART_Send((int *) dato,1);
-   delayMs(100);
-   
-   ADS131E08_WREG(_CONFIG1_ADDRESS, 0x96);	// Establece la configuración por defecto del registro CONFIG1
-	delayMs(100);
+   delayMs(10);
    ADS131E08_WREG(_CONFIG2_ADDRESS, 0xF0);	// Establecer el registro CONFIG2
    
-   delayMs(100);
+   //delayMs(100);
    ADS131E08_WREG(_CH1SET_ADDRESS, _CHSET_MUX_TEST_SIGNAL);	// Establecer el canal 1 para el modo de TEST
    ADS131E08_WREG(_CH2SET_ADDRESS, _CHSET_PD_MASK); // Apago el canal 2
    ADS131E08_WREG(_CH3SET_ADDRESS, _CHSET_PD_MASK); // Apago el canal 3
@@ -139,13 +134,13 @@ void ADS131E08_initialize(){
    ADS131E08_WREG(_CH6SET_ADDRESS, _CHSET_PD_MASK); // Apago el canal 6
    ADS131E08_WREG(_CH7SET_ADDRESS, _CHSET_PD_MASK); // Apago el canal 7
    ADS131E08_WREG(_CH8SET_ADDRESS, _CHSET_PD_MASK); // Apago el canal 8
-   delayMs(100);
+   //delayMs(100);
    
    ADS131E08_sendCommand(_START); // Iniciar la adquisicion de datos
-   delayMs(100);
    ADS131E08_sendCommand(_RDATAC);  // Acceder al modo de lectura continua de datos
-   delayMs(100);
-      
+   delayMs(1);
+   //ADS131E08_WREG(_CONFIG1_ADDRESS, 0x96);	// Establece la configuración por defecto del registro CONFIG1
+	//delayMs(100);
 }
 
 /**
@@ -166,9 +161,8 @@ void ADS131E08_startADS(){
 */
 void ADS131E08_stopADS(){
 	ADS131E08_sendCommand(_STOP);     // Detener la adquisicion de datos
-	delayMs(1);
 	ADS131E08_sendCommand(_SDATAC);   // Salir del modo continuo de lectura de datos para comunicarse con ADS
-	delayMs(1);
+	delayMs(10);
 	isRunning = false;
 }
 
@@ -278,8 +272,18 @@ bool ADS131E08_isDataAvailable()
 */
 uint8_t ADS131E08_getDeviceID()
 {
-	uint8_t data = ADS131E08_RREG(_ID_ADDRESS);
-	return data;
+   uint8_t idDevice;
+    //delayMs(100);
+   ADS131E08_sendCommand(_SDATAC);	// Detener al modo de lectura continua de datos
+   ADS131E08_sendCommand(_STOP);	// Detener la adquisicion de datos
+   delayMs(10);
+   idDevice = ADS131E08_RREG(_ID_ADDRESS);
+   ADS131E08_sendCommand(_START);	// Iniciar la adquisicion de datos
+   ADS131E08_sendCommand(_RDATAC);  // Acceder al modo de lectura continua de datos
+   delayMs(10);
+   //delayMs(100);
+   //delayMs(100);
+	return idDevice;
 }
 
 /**
@@ -312,7 +316,7 @@ void ADS131E08_getChannelData(uint8_t *sampleCnt, uint32_t *data)
 	
 	for(i=0; i<3; i++)
 	{
-		inByte = SPI_transfer(0x00); // Leer el estado de los registros
+		inByte = SPI_transfer(0x00)   ; // Leer el estado de los registros
 		boardStat = (boardStat << 8) | inByte;
 	}
 
@@ -324,13 +328,13 @@ void ADS131E08_getChannelData(uint8_t *sampleCnt, uint32_t *data)
 			data[i] = (data[i]<<8) | inByte; // Almacenar 24 bits de datos
 		}
 	}
-	
-   if (data[23] == 1) { // Pasar de 24 bits a 32 bits
-      data |= 0xFF000000;
-   } else {
-      data |= 0x00FFFFFF;
+   for(i=0;i<8;i++){
+      if (data[i] & (1<<23)) { // Pasar de 24 bits a 32 bits
+         data[i] |= 0xFF000000;
+      } else {
+         data[i] &= 0x00FFFFFF;
+      }
    }
-   
 	ADS131E08_csHigh(); // Finalizar la comunicacion SPI
    
 	if(firstDataPacket == TRUE)
@@ -339,4 +343,27 @@ void ADS131E08_getChannelData(uint8_t *sampleCnt, uint32_t *data)
 	}
 	
 	sampleCounter++; // Incrementar sampleCounter 
+}
+
+void ADS131E08_configureTestSignal(){
+   //delayMs(100);
+   ADS131E08_sendCommand(_SDATAC);	// Detener al modo de lectura continua de datos
+   ADS131E08_sendCommand(_STOP);	// Detener la adquisicion de datos
+   delayMs(10);
+   ADS131E08_WREG(_CONFIG2_ADDRESS, 0xF0);	// Establecer el registro CONFIG2
+   
+   //delayMs(100);
+   ADS131E08_WREG(_CH1SET_ADDRESS, _CHSET_MUX_TEST_SIGNAL);	// Establecer el canal 1 para el modo de TEST
+   ADS131E08_WREG(_CH2SET_ADDRESS, _CHSET_PD_MASK); // Apago el canal 2
+   ADS131E08_WREG(_CH3SET_ADDRESS, _CHSET_PD_MASK); // Apago el canal 3
+   ADS131E08_WREG(_CH4SET_ADDRESS, _CHSET_PD_MASK); // Apago el canal 4
+   ADS131E08_WREG(_CH5SET_ADDRESS, _CHSET_MUX_TEST_SIGNAL); // Establecer el canal 1 para el modo de TEST
+   ADS131E08_WREG(_CH6SET_ADDRESS, _CHSET_PD_MASK); // Apago el canal 6
+   ADS131E08_WREG(_CH7SET_ADDRESS, _CHSET_PD_MASK); // Apago el canal 7
+   ADS131E08_WREG(_CH8SET_ADDRESS, _CHSET_PD_MASK); // Apago el canal 8
+   //delayMs(100);
+   
+   ADS131E08_sendCommand(_START); // Iniciar la adquisicion de datos
+   ADS131E08_sendCommand(_RDATAC);  // Acceder al modo de lectura continua de datos
+   delayMs(1);
 }

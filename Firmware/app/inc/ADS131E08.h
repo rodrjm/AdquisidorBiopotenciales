@@ -630,6 +630,11 @@ uint32_t boardStat;
 extern uint32_t channelData[8];
 
 /**
+ 	 * @brief Variable utilizada para guardar el ID del ADS
+*/
+extern uint8_t id;
+
+/**
  	 * @brief Configuración inicial de los pines con los que cuenta el ADS en bajo
 */
 void ADS131E08_signalDown();
@@ -699,5 +704,7 @@ bool ADS131E08_isDataAvailable();
 uint8_t ADS131E08_getDeviceID();
 
 void ADS131E08_getChannelData(uint8_t *sampleCnt, uint32_t *data);
+
+void ADS131E08_configureTestSignal();
 
 #endif /* ADS131E08_H_ */
