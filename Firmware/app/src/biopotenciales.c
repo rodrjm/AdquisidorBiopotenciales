@@ -24,7 +24,7 @@
 */
 static void initHardware(void);
 
-static void initHardware(void)
+/*static void initHardware(void)
 {
 	Board_Init();
 	SystemCoreClockUpdate();

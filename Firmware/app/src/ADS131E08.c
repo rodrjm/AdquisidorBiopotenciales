@@ -288,7 +288,7 @@ void ADS131E08_getChannelData(uint8_t *sampleCnt, uint32_t *data)
 	uint8_t i,j = 0; // Contadores del loop for
 	uint8_t inByte;
 	uint8_t byteCounter = 0;
-   
+   uint8_t byte2,byte3;
    for(i=0; i<8; i++)
    {
       data[i] = 0;
@@ -304,21 +304,28 @@ void ADS131E08_getChannelData(uint8_t *sampleCnt, uint32_t *data)
 
 	for(i=0; i<8; i++) // Leer 16 bits de datos por cada canal en 2 byte chunks
 	{
-		for(j=0; j<3; j++)
+      inByte=SPI_transfer(0x00);
+      byte2=SPI_transfer(0x00);
+      byte3=SPI_transfer(0x00);
+      data[i] = (byte3<<24) | (byte2<<16) | (inByte<<8);
+      if(inByte & (1<<7)){
+         data[i] = (~(data[i]) +1); 
+         data[i] |= (0xFF);
+		}
+      /*for(j=0; j<3; j++)
 		{
 			inByte = SPI_transfer(0x00);
-			data[i] = (data[i]<<8) | inByte; // Almacenar 24 bits de datos
-		}
+			data[i] = (data[i]<<8) | inByte;
+		}*/
 	}
-   
+   /*
    for(i=0;i<8;i++){
       if (data[i] & (1<<23)) { // Pasar de 24 bits a 32 bits
          data[i] |= 0xFF000000;
       } else {
          data[i] &= 0x00FFFFFF;
       }
-   }
-   
+   }*/
 	ADS131E08_csHigh(); // Finalizar la comunicacion SPI
    
 	if(firstDataPacket == TRUE)

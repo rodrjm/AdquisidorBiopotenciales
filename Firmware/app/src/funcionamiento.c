@@ -125,10 +125,13 @@ void Funcionamiento_Menu()
 	{
 		while(!(ADS131E08_isDataAvailable()));
 		ADS131E08_getChannelData(&sampleCnt, channelData);
-      for(uint8_t i=0; i<8; i++)
+      /*for(uint8_t i=0; i<8; i++)
       {
-         UART_Send((int *) &channelData[i], 3);
-      }
+         UART_Send((int *) &channelData[i], 4);
+         delayMs(10000);
+      }*/
+      UART_Send((int *) &channelData[0],4);
+      //delayMs(500);
 		GPIO_getSignal(channelData[currentChannel]);
 		if (!(Board_TEC_GetStatus(BOARD_TEC_1))) {
          GPIO_stopped(currentChannel);
