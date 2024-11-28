@@ -642,7 +642,9 @@ void ADS131E08_signalDown();
 /**
  	 * @brief Configuracion de los pines con los que cuenta el ADS
 */
-void ADS131E08_initialize();
+void ADS131E08_Init();
+
+void ADS131E08_defaultConfig();
 
 /**
  	 * @brief Iniciar la adquisicion continua de datos

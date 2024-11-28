@@ -24,7 +24,7 @@
 /**
  * @brief Inicializacion del modulo SPI
  */
-void SPI_init();
+void SPI_Init();
 
 
 /**
@@ -36,7 +36,7 @@ void SPI_deInit();
 /**
  * @brief Configuracion del formato y los datos del modulo SPI
  */
-void SPI_setup();
+void SPI_Setup();
 
 
 /**

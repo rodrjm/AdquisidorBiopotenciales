@@ -32,7 +32,7 @@
 /**
  *  @brief Configuracion inicial e inicializacion de UART
  */
-void UART_setup();
+void UART_Init();
 
 
 /** 

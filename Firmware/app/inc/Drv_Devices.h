@@ -35,7 +35,7 @@
 /**
  * @brief Flag to indicate if the ADS1299 is acquiring data or not
  */
-extern bool is_running;
+//extern bool is_running;
 
 /**
  * @brief Flag to indicate if channel settings commands are being received

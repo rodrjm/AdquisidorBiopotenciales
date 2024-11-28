@@ -35,7 +35,7 @@ static void initHardware(void)
 	SPI_setup();
 	UART_setup();
 }
-int main(void)
+/*int main(void)
 {
 	initHardware();
 	delayMs(500);
@@ -44,7 +44,7 @@ int main(void)
 	Board_LED_Toggle(1);
    
    uint8_t leerDatos = 0;
-   
+   */
 	/*Drv_Devices_startFromScratch();
    /ADS131E08_startStreaming();
    /ADS131E08_sendCommand(_SDATAC);
@@ -60,6 +60,7 @@ int main(void)
    ADS131E08_getRegistersData(dato);
    UART_Send(dato,24);
    //ADS131E08_startStreaming();*/
+/*
 	while (1)
 	{
       //while(!(ADS131E08_isDataAvailable()));
@@ -117,5 +118,5 @@ int main(void)
       }
 	}
 }
-
+*/
 /*==================[end of file]============================================*/

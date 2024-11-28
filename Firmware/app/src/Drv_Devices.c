@@ -13,7 +13,7 @@
 /**
  * @brief Flag to indicate if the ADS1299 is acquiring data or not
  */
-bool is_running = FALSE;
+//bool is_running = FALSE;
 
 /**
  * @brief Flag to indicate if channel settings commands are being received
@@ -559,22 +559,23 @@ bool Drv_Devices_startRunning(int OUT_TYPE)
 /**
  * @brief Start the system from scratch, send initial message and get the board ready to get commands
  */
+ /*
 void Drv_Devices_startFromScratch()
 {
 	if(!is_running)
 	{
 		//Iniciar UART
-		UART_setup();
+		UART_Setup();
 		//Función que inicializa el ADS1299
       ADS131E08_signalDown();
-		ADS131E08_initialize();
+		//ADS131E08_initialize();
 		//delayMs(0, 50);
 		//Drv_Devices_boardReset();
 		//Drv_Devices_sendEOT();
 
 	}
 }
-
+*/
 /**
 * @description: This is a function that can be called multiple times, this is
 *                 what we refer to as a `soft reset`. You will hear/see this
@@ -1122,7 +1123,7 @@ bool Drv_Devices_isMaster()
   */
  bool Drv_Devices_getIsRunning()
  {
-	 return is_running;
+	 return 1; //is_running;
  }
 
  /**
@@ -1257,6 +1258,7 @@ bool Drv_Devices_isMaster()
 			}
 	}
 */
+/*
 static volatile uint32_t tick_ct = 0;
 void SysTick_Handler(void) {
    tick_ct++;
@@ -1274,7 +1276,7 @@ void delayUs(uint32_t tk) {
 	while(tick_ct < end)
 		__WFI();
 }
-
+*/
 
 
   /**

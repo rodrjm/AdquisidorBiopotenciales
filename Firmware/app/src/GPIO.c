@@ -11,7 +11,7 @@
 /**
  	 * @brief Inicializar puerto GPIO
 */
-void GPIO_init()
+void GPIO_Init()
 {
 	/* Configuracion del puerto GPIO */
 	Chip_GPIO_Init(LPC_GPIO_PORT);
@@ -132,4 +132,233 @@ void GPIO_setPinToggle(uint8_t port, uint8_t pin)
 
 void setLed(uint8_t port,uint8_t pin,bool state){
    Chip_GPIO_SetPinState(LPC_GPIO_PORT, port, pin,!state);
+}
+
+void GPIO_displayOFF() {
+   setLed(LED1_PORT,LED1_PIN, true);
+   setLed(LED2_PORT,LED2_PIN, true);
+   setLed(LED3_PORT,LED3_PIN, true);
+   setLed(LED4_PORT,LED4_PIN, true);
+   setLed(LED5_PORT,LED5_PIN, true);
+   setLed(LED6_PORT,LED6_PIN, true);
+   setLed(LED7_PORT,LED7_PIN, true);
+   setLed(LED8_PORT,LED8_PIN, true);
+   setLed(LED9_PORT,LED9_PIN, true);
+   setLed(LED10_PORT,LED10_PIN, true);
+}
+
+void GPIO_displayON() {
+   setLed(LED1_PORT,LED1_PIN, false);
+   setLed(LED2_PORT,LED2_PIN, false);
+   setLed(LED3_PORT,LED3_PIN, false);
+   setLed(LED4_PORT,LED4_PIN, false);
+   setLed(LED5_PORT,LED5_PIN, false);
+   setLed(LED6_PORT,LED6_PIN, false);
+   setLed(LED7_PORT,LED7_PIN, false);
+   setLed(LED8_PORT,LED8_PIN, false);
+   setLed(LED9_PORT,LED9_PIN, false);
+   setLed(LED10_PORT,LED10_PIN, false);
+}
+
+void GPIO_displayCurrentChannel(uint8_t currentChannel) {
+   switch (currentChannel)
+   {
+      case 1:
+      {
+         setLed(LED1_PORT,LED1_PIN, false);
+         break;
+      }
+      case 2:
+      {
+         setLed(LED2_PORT,LED2_PIN, false);
+         break;
+      }
+      case 3:
+      {
+         setLed(LED3_PORT,LED3_PIN, false);
+         break;
+      }
+      case 4:
+      {
+         setLed(LED4_PORT,LED4_PIN, false);
+         break;
+      }
+      case 5:
+      {
+         setLed(LED5_PORT,LED5_PIN, false);
+         break;
+      }
+      case 6:
+      {
+         setLed(LED6_PORT,LED6_PIN, false);
+         break;
+      }
+      case 7:
+      {
+         setLed(LED7_PORT,LED7_PIN, false);
+         break;
+      }
+      case 8:
+      {
+         setLed(LED8_PORT,LED8_PIN, false);
+         break;
+      }
+      default:
+      {
+         break;
+      }
+   }
+}
+
+void GPIO_displayCurrentkSPS(uint8_t current_kSPS) {
+   switch (current_kSPS)
+   {
+      case 1:
+      {
+         setLed(LED10_PORT,LED10_PIN, false);
+         break;
+      }
+      case 2:
+      {
+         setLed(LED9_PORT,LED9_PIN, false);
+         break;
+      }
+      case 4:
+      {
+         setLed(LED8_PORT,LED8_PIN, false);
+         break;
+      }
+      default:
+         break;
+   }
+}
+
+void GPIO_setBoardLEDs(uint8_t aux) {
+   switch (aux)
+   {
+      case 1:
+      {
+         Board_LED_Set(LED_1, true);
+         Board_LED_Set(LED_2, true);
+         Board_LED_Set(LED_3, false);
+         break;
+      }
+      case 2:
+      {
+         Board_LED_Set(LED_1, true);
+         Board_LED_Set(LED_2, false);
+         Board_LED_Set(LED_3, true);
+         break;
+      }
+      case 3:
+      {
+         Board_LED_Set(LED_1, true);
+         Board_LED_Set(LED_2, false);
+         Board_LED_Set(LED_3, false);
+         break;
+      }
+      case 4:
+      {
+         Board_LED_Set(LED_1, false);
+         Board_LED_Set(LED_2, true);
+         Board_LED_Set(LED_3, true);
+         break;
+      }
+      case 5:
+      {
+         Board_LED_Set(LED_1, false);
+         Board_LED_Set(LED_2, true);
+         Board_LED_Set(LED_3, false);
+         break;
+      }
+      case 6:
+      {
+         Board_LED_Set(LED_1, false);
+         Board_LED_Set(LED_2, false);
+         Board_LED_Set(LED_3, true);
+         break;
+      }
+      case 7:
+      {
+         Board_LED_Set(LED_1, false);
+         Board_LED_Set(LED_2, false);
+         Board_LED_Set(LED_3, false);
+         break;
+      }
+      case 8:
+      {
+         Board_LED_Set(LED_1, true);
+         Board_LED_Set(LED_2, true);
+         Board_LED_Set(LED_3, true);
+         break;
+      }
+      default:
+         break;
+   }
+}
+
+void GPIO_stopped(uint8_t currentChannel) {
+   GPIO_displayOFF();
+   Board_LED_Set(LED_RED, false);
+   Board_LED_Set(LED_GREEN, true);
+   Board_LED_Set(LED_BLUE, true);
+   GPIO_setBoardLEDs(currentChannel);
+}
+
+void GPIO_selectChannel(uint8_t currentChannel) {
+   GPIO_displayOFF();
+   GPIO_displayCurrentChannel(currentChannel);
+   Board_LED_Set(LED_RED, true);
+   Board_LED_Set(LED_GREEN, true);
+   Board_LED_Set(LED_BLUE, false);
+   GPIO_setBoardLEDs(currentChannel);
+}
+
+void GPIO_select_kSPS(uint8_t current_kSPS) {
+   GPIO_displayOFF();
+   GPIO_displayCurrentkSPS(current_kSPS);
+   Board_LED_Set(LED_RED, true);
+   Board_LED_Set(LED_BLUE, false);
+   Board_LED_Set(LED_GREEN, false);
+   GPIO_setBoardLEDs(current_kSPS);
+}
+
+void GPIO_start(uint8_t currentChannel) {
+   GPIO_displayOFF();
+   Board_LED_Set(LED_RED, true);
+   Board_LED_Set(LED_GREEN, false);
+   Board_LED_Set(LED_BLUE, true);
+}
+
+void GPIO_getSignal(uint32_t channelData) {
+   if (channelData < 0x00666664) {
+      setLed(LED1_PORT,LED1_PIN, false);
+   }
+   if (channelData < 0x004CCCCB) {
+      setLed(LED2_PORT,LED2_PIN, false);
+   }
+   if (channelData < 0x00333332) {
+      setLed(LED3_PORT,LED3_PIN, false);
+   }
+   if (channelData < 0x00199999) {
+      setLed(LED4_PORT,LED4_PIN, false);
+   }
+   if (channelData < 0x00000000) {
+      setLed(LED5_PORT,LED5_PIN, false);
+   }
+   if (channelData > 0x00000000) {
+      setLed(LED6_PORT,LED6_PIN, false);
+   }
+   if (channelData > 0xFFE66667) {
+      setLed(LED7_PORT,LED7_PIN, false);
+   }
+   if (channelData > 0xFFCCCCCE) {
+      setLed(LED8_PORT,LED8_PIN, false);
+   }
+   if (channelData > 0xFFB33335) {
+      setLed(LED9_PORT,LED9_PIN, false);
+   }
+   if (channelData > 0xFF99999C) {
+      setLed(LED10_PORT,LED10_PIN, false);
+   }
 }

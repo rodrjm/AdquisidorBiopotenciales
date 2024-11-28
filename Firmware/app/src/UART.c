@@ -10,7 +10,7 @@
 /**
  	 *  @brief Configuracion inicial e inicializacion de UART
 */
-void UART_setup()
+void UART_Init()
 {
 	Chip_UART_Init(UART_SELECTION);
 	Chip_UART_SetBaud(UART_SELECTION, BAUD_RATE);
