@@ -331,34 +331,34 @@ void GPIO_start(uint8_t currentChannel) {
 }
 
 void GPIO_getSignal(uint32_t channelData) {
-   if (channelData < 0x00666664) {
+   if (channelData > 0x00666664) {
       setLed(LED1_PORT,LED1_PIN, false);
    }
-   if (channelData < 0x004CCCCB) {
+   if (channelData > 0x004CCCCB) {
       setLed(LED2_PORT,LED2_PIN, false);
    }
-   if (channelData < 0x00333332) {
+   if (channelData > 0x00333332) {
       setLed(LED3_PORT,LED3_PIN, false);
    }
-   if (channelData < 0x00199999) {
+   if (channelData > 0x00199999) {
       setLed(LED4_PORT,LED4_PIN, false);
    }
-   if (channelData < 0x00000000) {
+   if (channelData > 0x00000000) {
       setLed(LED5_PORT,LED5_PIN, false);
    }
-   if (channelData > 0x00000000) {
+   if (channelData < 0x00000000) {
       setLed(LED6_PORT,LED6_PIN, false);
    }
-   if (channelData > 0xFFE66667) {
+   if (channelData < 0xFFE66667) {
       setLed(LED7_PORT,LED7_PIN, false);
    }
-   if (channelData > 0xFFCCCCCE) {
+   if (channelData < 0xFFCCCCCE) {
       setLed(LED8_PORT,LED8_PIN, false);
    }
-   if (channelData > 0xFFB33335) {
+   if (channelData < 0xFFB33335) {
       setLed(LED9_PORT,LED9_PIN, false);
    }
-   if (channelData > 0xFF99999C) {
+   if (channelData < 0xFF99999C) {
       setLed(LED10_PORT,LED10_PIN, false);
    }
 }

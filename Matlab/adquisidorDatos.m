@@ -8,6 +8,7 @@ matriz_muestras=int32(zeros(muestras,4));
 ECG=zeros(1,muestras,'int32');
 val_neg=int32(-16777216);
 ADCres=(2.4/2^24); % 2^23 = 8388608
+LSB = (2 * 2.4) / (2^24);
 Fs=1000;
 T=1/Fs;
 L=muestras;
@@ -19,8 +20,8 @@ a=fir1(1000,[0.07 0.13],'stop');
 b=fir1(100,0.06,'low');
 c=fir1(100,0.001,'high');
 bW=fir1(ord,[low bnd],'DC-1');
-delete(instrfind({'port'},{'COM7'})); %borrar datos previos
-puerto=serial('COM7'); %declaración del pierto serie
+delete(instrfind({'port'},{'COM4'})); %borrar datos previos
+puerto=serial('COM4'); %declaración del pierto serie
 puerto.BaudRate=980000; %velocidad de transmision de datos
 set(puerto,'StopBits',1);
 set(puerto,'DataBits',8);
@@ -37,7 +38,7 @@ xlabel("Numero de muestras");
 ylabel("Volataje (V)");
 grid off;
 hold on;
-ylim([-1200000,1200000]);
+ylim([-1,1.5]);
 
 %Ciclo para la toma de muestras
 while contador<=muestras
@@ -68,7 +69,8 @@ while contador<=muestras
     %P1_ECG(2:end-1)=2*P1_ECG(2:end-1);
     %f=Fs*(0:(L/2))/L;
 
-    ECGV=(ECG*ADCres)*10^(6);
+    %ECGV=(ECG*ADCres)*10^(6);
+    ECGV = (ECG * LSB);
     plot(ECGV);
     drawnow;
     contador=contador+1;
