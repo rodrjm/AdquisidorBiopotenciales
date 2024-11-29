@@ -42,7 +42,11 @@ ylim([-1,1.5]);
 
 %Ciclo para la toma de muestras
 while contador<=muestras
-    xlim([0,contador+5]);
+    if muestras <= 50
+        xlim([0,contador+5]);
+    else
+        xlim([contador-50,contador+5]);
+    end
     muestra_actual(:)=fread(puerto,4,'uint8');
     matriz_muestras(contador,:)=muestra_actual;
     %fwrite(puerto,1,'uint8');
@@ -77,4 +81,4 @@ while contador<=muestras
 end
 fclose(puerto); %Cierra el puerto
 delete(puerto);
-pan_tompkin(ECG,1000,1);
+%pan_tompkin(ECG,1000,1);

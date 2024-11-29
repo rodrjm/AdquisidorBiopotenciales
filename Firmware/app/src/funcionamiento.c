@@ -27,6 +27,7 @@ uint8_t currentChannel;
  */
 uint8_t current_kSPS;
 
+uint8_t i = 0;
 
 /**
  * @brief Inicializar el ADS131E09 y enviar mensaje de bienvenida
@@ -39,8 +40,8 @@ void Funcionamiento_Init()
 	delayMs(50);
 	ADS131E08_defaultConfig();
 	estado = 0;
-	currentChannel = 1;
-	current_kSPS = 1;
+	currentChannel = 5;
+	current_kSPS = 6;
 	is_running = FALSE;
    GPIO_stopped(currentChannel);
 }
@@ -57,16 +58,16 @@ void Funcionamiento_Menu()
 		{
          case 0: // Estado: STOPPED
          {
-            if (!(Board_TEC_GetStatus(BOARD_TEC_1))) {
-               GPIO_start(currentChannel);
-               is_running = 1;
-               ADS131E08_startADS();
+            if (getPulsador(BOARD_TEC_1)) {
+                  GPIO_start(currentChannel);
+                  is_running = 1;
+                  ADS131E08_startADS();
             }
-            if (!(Board_TEC_GetStatus(BOARD_TEC_2))) {
+            if (getPulsador(BOARD_TEC_2)) {
                GPIO_selectChannel(currentChannel);
                estado = 1;
             }
-            if (!(Board_TEC_GetStatus(BOARD_TEC_3))) {
+            if (getPulsador(BOARD_TEC_3)) {
                GPIO_select_kSPS(current_kSPS);
                estado = 2;
             }
@@ -74,48 +75,49 @@ void Funcionamiento_Menu()
          }
          case 1: // Estado: SELECT CHANNEL
          {
-            if (!(Board_TEC_GetStatus(BOARD_TEC_3))) {
+            if (getPulsador(BOARD_TEC_3)) {
                currentChannel = currentChannel - 1;
-               if (currentChannel == 0) {
-                  currentChannel = 8;
+               if (currentChannel == 4) {
+                  currentChannel = 12;
                }
                GPIO_selectChannel(currentChannel);
             }
-            if (!(Board_TEC_GetStatus(BOARD_TEC_4))) {
+            if (getPulsador(BOARD_TEC_4)) {
                currentChannel = currentChannel + 1;
-               if (currentChannel == 9) {
-                  currentChannel = 1;
+               if (currentChannel == 13) {
+                  currentChannel = 5;
                }
                GPIO_selectChannel(currentChannel);
             }
-            if (!(Board_TEC_GetStatus(BOARD_TEC_1))) {
+            if (getPulsador(BOARD_TEC_1)) {
                GPIO_stopped(currentChannel);
+               ADS131E08_selectChannel(currentChannel);
                estado = 0;
             }
+            break;
          }
          case 2: // Estado: SELECT kSPS
          {
-            if (!(Board_TEC_GetStatus(BOARD_TEC_3))) {
-               current_kSPS--;
-               if (current_kSPS == 0) {
-                  current_kSPS = 4;
-               }
-               GPIO_select_kSPS(current_kSPS);
-            }
-            if (!(Board_TEC_GetStatus(BOARD_TEC_4))) {
+            if (getPulsador(BOARD_TEC_3)) {
                current_kSPS++;
-               if (current_kSPS == 3) {
-                  current_kSPS = 4;
-               }
-               if (current_kSPS == 5) {
-                  current_kSPS = 1;
+               if (current_kSPS == 7) {
+                  current_kSPS = 2;
                }
                GPIO_select_kSPS(current_kSPS);
             }
-            if (!(Board_TEC_GetStatus(BOARD_TEC_2))) {
+            if (getPulsador(BOARD_TEC_4)) {
+               current_kSPS--;
+               if (current_kSPS == 1) {
+                  current_kSPS = 6;
+               }
+               GPIO_select_kSPS(current_kSPS);
+            }
+            if (getPulsador(BOARD_TEC_1)) {
                GPIO_stopped(currentChannel);
+               ADS131E08_selectkSPS(current_kSPS);
                estado = 0;
             }
+            break;
          }
          default:
             break;
@@ -125,21 +127,36 @@ void Funcionamiento_Menu()
 	{
 		while(!(ADS131E08_isDataAvailable()));
 		ADS131E08_getChannelData(&sampleCnt, channelData);
-      /*for(uint8_t i=0; i<8; i++)
+      /*
+      for(uint8_t i=0; i<8; i++)
       {
          UART_Send((int *) &channelData[i], 4);
-         delayMs(10000);
-      }*/
-      UART_Send((int *) &channelData[0],4);
+      }
+      */
+      UART_Send((int *) &channelData[currentChannel-5],4);
       //delayMs(500);
-		GPIO_getSignal(channelData[currentChannel]);
-		if (!(Board_TEC_GetStatus(BOARD_TEC_1))) {
+      if (i == 50) {
+         GPIO_getSignal(&channelData[currentChannel-5]);
+         i = 0;
+      } else i++;
+		if (getPulsador(BOARD_TEC_1)) {
          GPIO_stopped(currentChannel);
 			is_running = 0;
          estado = 0;
 			ADS131E08_stopADS();
 		}
 	}
+}
+
+
+bool getPulsador(uint8_t pulsador) {
+   if (!(Board_TEC_GetStatus(pulsador))) {
+      delayMs(20);
+      while (!(Board_TEC_GetStatus(pulsador)));
+      delayMs(20);
+      return true;
+   }
+   return false;
 }
 
 

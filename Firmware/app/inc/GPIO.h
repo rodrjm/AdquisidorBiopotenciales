@@ -104,7 +104,9 @@ void GPIO_displayCurrentChannel(uint8_t currentChannel);
 
 void GPIO_displayCurrentkSPS(uint8_t current_kSPS);
 
-void GPIO_setBoardLEDs(uint8_t aux);
+void GPIO_setBoardLEDs_channel(uint8_t aux);
+
+void GPIO_setBoardLEDs_kSPS(uint8_t aux);
 
 void GPIO_stopped(uint8_t currentChannel);
 
@@ -114,7 +116,7 @@ void GPIO_select_kSPS(uint8_t current_kSPS);
 
 void GPIO_start(uint8_t currentChannel);
 
-void GPIO_getSignal(uint32_t channelData);
+void GPIO_getSignal(uint32_t *channelData);
 
 
 #endif /* GPIO_H_ */

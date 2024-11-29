@@ -709,4 +709,8 @@ void ADS131E08_getChannelData(uint8_t *sampleCnt, uint32_t *data);
 
 void ADS131E08_configureTestSignal();
 
+void ADS131E08_selectChannel(uint8_t currentChannel);
+
+void ADS131E08_selectkSPS(uint8_t current_kSPS);
+
 #endif /* ADS131E08_H_ */

@@ -3,7 +3,11 @@
 */
 
 #include "GPIO.h"
+#include "UART.h"
+#include "ADS131E08.h"
+#include "board_api.h"
 #include "chip.h"
+#include <stdlib.h>
 
 
 
@@ -163,42 +167,42 @@ void GPIO_displayON() {
 void GPIO_displayCurrentChannel(uint8_t currentChannel) {
    switch (currentChannel)
    {
-      case 1:
+      case 5:
       {
          setLed(LED1_PORT,LED1_PIN, false);
          break;
       }
-      case 2:
+      case 6:
       {
          setLed(LED2_PORT,LED2_PIN, false);
          break;
       }
-      case 3:
+      case 7:
       {
          setLed(LED3_PORT,LED3_PIN, false);
          break;
       }
-      case 4:
+      case 8:
       {
          setLed(LED4_PORT,LED4_PIN, false);
          break;
       }
-      case 5:
+      case 9:
       {
          setLed(LED5_PORT,LED5_PIN, false);
          break;
       }
-      case 6:
+      case 10:
       {
          setLed(LED6_PORT,LED6_PIN, false);
          break;
       }
-      case 7:
+      case 11:
       {
          setLed(LED7_PORT,LED7_PIN, false);
          break;
       }
-      case 8:
+      case 12:
       {
          setLed(LED8_PORT,LED8_PIN, false);
          break;
@@ -213,12 +217,12 @@ void GPIO_displayCurrentChannel(uint8_t currentChannel) {
 void GPIO_displayCurrentkSPS(uint8_t current_kSPS) {
    switch (current_kSPS)
    {
-      case 1:
+      case 6:
       {
          setLed(LED10_PORT,LED10_PIN, false);
          break;
       }
-      case 2:
+      case 5:
       {
          setLed(LED9_PORT,LED9_PIN, false);
          break;
@@ -228,68 +232,135 @@ void GPIO_displayCurrentkSPS(uint8_t current_kSPS) {
          setLed(LED8_PORT,LED8_PIN, false);
          break;
       }
+      case 3:
+      {
+         setLed(LED7_PORT,LED7_PIN, false);
+         break;
+      }
+      case 2:
+      {
+         setLed(LED6_PORT,LED6_PIN, false);
+         break;
+      }
       default:
          break;
    }
 }
 
-void GPIO_setBoardLEDs(uint8_t aux) {
+void GPIO_setBoardLEDs_channel(uint8_t aux) {
    switch (aux)
    {
-      case 1:
-      {
-         Board_LED_Set(LED_1, true);
-         Board_LED_Set(LED_2, true);
-         Board_LED_Set(LED_3, false);
-         break;
-      }
-      case 2:
-      {
-         Board_LED_Set(LED_1, true);
-         Board_LED_Set(LED_2, false);
-         Board_LED_Set(LED_3, true);
-         break;
-      }
-      case 3:
-      {
-         Board_LED_Set(LED_1, true);
-         Board_LED_Set(LED_2, false);
-         Board_LED_Set(LED_3, false);
-         break;
-      }
-      case 4:
-      {
-         Board_LED_Set(LED_1, false);
-         Board_LED_Set(LED_2, true);
-         Board_LED_Set(LED_3, true);
-         break;
-      }
       case 5:
       {
-         Board_LED_Set(LED_1, false);
+         Board_LED_Set(LED_1, true);
          Board_LED_Set(LED_2, true);
          Board_LED_Set(LED_3, false);
          break;
       }
       case 6:
       {
-         Board_LED_Set(LED_1, false);
+         Board_LED_Set(LED_1, true);
          Board_LED_Set(LED_2, false);
          Board_LED_Set(LED_3, true);
          break;
       }
       case 7:
       {
-         Board_LED_Set(LED_1, false);
+         Board_LED_Set(LED_1, true);
          Board_LED_Set(LED_2, false);
          Board_LED_Set(LED_3, false);
          break;
       }
       case 8:
       {
+         Board_LED_Set(LED_1, false);
+         Board_LED_Set(LED_2, true);
+         Board_LED_Set(LED_3, true);
+         break;
+      }
+      case 9:
+      {
+         Board_LED_Set(LED_1, false);
+         Board_LED_Set(LED_2, true);
+         Board_LED_Set(LED_3, false);
+         break;
+      }
+      case 10:
+      {
+         Board_LED_Set(LED_1, false);
+         Board_LED_Set(LED_2, false);
+         Board_LED_Set(LED_3, true);
+         break;
+      }
+      case 11:
+      {
+         Board_LED_Set(LED_1, false);
+         Board_LED_Set(LED_2, false);
+         Board_LED_Set(LED_3, false);
+         break;
+      }
+      case 12:
+      {
          Board_LED_Set(LED_1, true);
          Board_LED_Set(LED_2, true);
          Board_LED_Set(LED_3, true);
+         break;
+      }
+      default:
+         break;
+   }
+}
+
+void GPIO_setBoardLEDs_kSPS(uint8_t aux) {
+   switch (aux)
+   {
+      case 6:
+      {
+         Board_LED_Set(LED_1, true);
+         Board_LED_Set(LED_2, true);
+         Board_LED_Set(LED_3, false);
+         break;
+      }
+      case 5:
+      {
+         Board_LED_Set(LED_1, true);
+         Board_LED_Set(LED_2, false);
+         Board_LED_Set(LED_3, true);
+         break;
+      }
+      case 4:
+      {
+         Board_LED_Set(LED_1, true);
+         Board_LED_Set(LED_2, false);
+         Board_LED_Set(LED_3, false);
+         break;
+      }
+      case 3:
+      {
+         Board_LED_Set(LED_1, false);
+         Board_LED_Set(LED_2, true);
+         Board_LED_Set(LED_3, true);
+         break;
+      }
+      case 2:
+      {
+         Board_LED_Set(LED_1, false);
+         Board_LED_Set(LED_2, true);
+         Board_LED_Set(LED_3, false);
+         break;
+      }
+      case 1:
+      {
+         Board_LED_Set(LED_1, false);
+         Board_LED_Set(LED_2, false);
+         Board_LED_Set(LED_3, true);
+         break;
+      }
+      case 0:
+      {
+         Board_LED_Set(LED_1, false);
+         Board_LED_Set(LED_2, false);
+         Board_LED_Set(LED_3, false);
          break;
       }
       default:
@@ -302,7 +373,7 @@ void GPIO_stopped(uint8_t currentChannel) {
    Board_LED_Set(LED_RED, false);
    Board_LED_Set(LED_GREEN, true);
    Board_LED_Set(LED_BLUE, true);
-   GPIO_setBoardLEDs(currentChannel);
+   GPIO_setBoardLEDs_channel(currentChannel);
 }
 
 void GPIO_selectChannel(uint8_t currentChannel) {
@@ -311,16 +382,16 @@ void GPIO_selectChannel(uint8_t currentChannel) {
    Board_LED_Set(LED_RED, true);
    Board_LED_Set(LED_GREEN, true);
    Board_LED_Set(LED_BLUE, false);
-   GPIO_setBoardLEDs(currentChannel);
+   GPIO_setBoardLEDs_channel(currentChannel);
 }
 
 void GPIO_select_kSPS(uint8_t current_kSPS) {
    GPIO_displayOFF();
    GPIO_displayCurrentkSPS(current_kSPS);
-   Board_LED_Set(LED_RED, true);
+   Board_LED_Set(LED_RED, false);
+   Board_LED_Set(LED_GREEN, true);
    Board_LED_Set(LED_BLUE, false);
-   Board_LED_Set(LED_GREEN, false);
-   GPIO_setBoardLEDs(current_kSPS);
+   GPIO_setBoardLEDs_kSPS(current_kSPS);
 }
 
 void GPIO_start(uint8_t currentChannel) {
@@ -330,35 +401,36 @@ void GPIO_start(uint8_t currentChannel) {
    Board_LED_Set(LED_BLUE, true);
 }
 
-void GPIO_getSignal(uint32_t channelData) {
-   if (channelData > 0x00666664) {
-      setLed(LED1_PORT,LED1_PIN, false);
+void GPIO_getSignal(uint32_t *channelData) {
+   GPIO_displayOFF();
+   if ((int) *channelData > 1962934272) {
+      setLed(LED10_PORT,LED10_PIN, false);
    }
-   if (channelData > 0x004CCCCB) {
-      setLed(LED2_PORT,LED2_PIN, false);
-   }
-   if (channelData > 0x00333332) {
-      setLed(LED3_PORT,LED3_PIN, false);
-   }
-   if (channelData > 0x00199999) {
-      setLed(LED4_PORT,LED4_PIN, false);
-   }
-   if (channelData > 0x00000000) {
-      setLed(LED5_PORT,LED5_PIN, false);
-   }
-   if (channelData < 0x00000000) {
-      setLed(LED6_PORT,LED6_PIN, false);
-   }
-   if (channelData < 0xFFE66667) {
-      setLed(LED7_PORT,LED7_PIN, false);
-   }
-   if (channelData < 0xFFCCCCCE) {
-      setLed(LED8_PORT,LED8_PIN, false);
-   }
-   if (channelData < 0xFFB33335) {
+   if ((int) *channelData > 1610612736) {
       setLed(LED9_PORT,LED9_PIN, false);
    }
-   if (channelData < 0xFF99999C) {
-      setLed(LED10_PORT,LED10_PIN, false);
+   if ((int) *channelData > 1073741824) {
+      setLed(LED8_PORT,LED8_PIN, false);
+   }
+   if ((int) *channelData > 536870912) {
+      setLed(LED7_PORT,LED7_PIN, false);
+   }
+   if ((int) *channelData > 0) {
+      setLed(LED6_PORT,LED6_PIN, false);
+   }
+   if ((int) *channelData < 0) {
+      setLed(LED5_PORT,LED5_PIN, false);
+   }
+   if ((int) *channelData < -536870912) {
+      setLed(LED4_PORT,LED4_PIN, false);
+   }
+   if ((int) *channelData < -1073741824) {
+      setLed(LED3_PORT,LED3_PIN, false);
+   }
+   if ((int) *channelData < -1610612736) {
+      setLed(LED2_PORT,LED2_PIN, false);
+   }
+   if ((int) *channelData < -1962934272) {
+      setLed(LED1_PORT,LED1_PIN, false);
    }
 }

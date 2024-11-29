@@ -41,6 +41,8 @@ void Funcionamiento_Init();
  */
 void Funcionamiento_Menu();
 
+bool getPulsador(uint8_t pulsador);
+
 void SysTick_Handler(void);
 
 void delayMs(uint32_t tk);
