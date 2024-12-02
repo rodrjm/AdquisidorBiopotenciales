@@ -7,6 +7,8 @@
 #include <stdlib.h>
 
 
+uint32_t max=0x000000; // Variable utilizada para llevar el maximo valor obtenido 
+uint32_t min=0x7FFFFF; // Variable utilizada para llevar el minimo valor obtenido 
 /**
  * @brief Bandera que indica si el ADS131E08 esta adquiriendo data o no
  */
@@ -93,6 +95,8 @@ void Funcionamiento_Menu()
                GPIO_stopped(currentChannel);
                ADS131E08_selectChannel(currentChannel);
                estado = 0;
+               max=0x000000; 
+               min=0x7FFFFF;
             }
             break;
          }
@@ -133,10 +137,10 @@ void Funcionamiento_Menu()
          UART_Send((int *) &channelData[i], 4);
       }
       */
-      UART_Send((int *) &channelData[currentChannel-5],4);
-      //delayMs(500);
+      UART_Send(&channelData[currentChannel-5],4);
+      //delayMs(1000);
       if (i == 50) {
-         GPIO_getSignal(&channelData[currentChannel-5]);
+         GPIO_getSignal(channelData[currentChannel-5],&min,&max);
          i = 0;
       } else i++;
 		if (getPulsador(BOARD_TEC_1)) {

@@ -128,7 +128,7 @@ void Chip_UART_Init(LPC_USART_T *pUART)
    }
 
    /* Default 8N1, with DLAB disabled */
-   Chip_UART_ConfigData(pUART, (UART_LCR_WLEN8 | UART_LCR_SBS_1BIT | UART_LCR_PARITY_DIS));
+   Chip_UART_ConfigData(pUART, (UART_LCR_WLEN8 | UART_LCR_SBS_1BIT));
 
    /* Disable fractional divider */
    pUART->FDR = 0x10;

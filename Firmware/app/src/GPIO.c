@@ -9,7 +9,7 @@
 #include "chip.h"
 #include <stdlib.h>
 
-
+uint8_t LED_ARRAY[10] = {LED1_PORT,LED1_PIN};
 
 
 /**
@@ -401,36 +401,50 @@ void GPIO_start(uint8_t currentChannel) {
    Board_LED_Set(LED_BLUE, true);
 }
 
-void GPIO_getSignal(uint32_t *channelData) {
+void GPIO_getSignal(uint32_t channelData, uint32_t *min, uint32_t *max) {
    GPIO_displayOFF();
-   if ((int) *channelData > 1962934272) {
+   if (channelData > *max) {
+      *max = channelData;
+   }else
+   if (channelData < *min) {
+      *min = channelData;
+   }
+   uint32_t rango = 0x7FFFFF;
+   if ((*min != 0x7FFFFF) && (*max != 0x000000)) {
+      if (*min < 0x0000000) {
+         rango = *max - (-*min);
+      } else {
+         rango = *max - *min;
+      }
+   }
+   if (channelData >= *max) {
       setLed(LED10_PORT,LED10_PIN, false);
    }
-   if ((int) *channelData > 1610612736) {
+   if (channelData > ((rango*8/9) + *min)) {
       setLed(LED9_PORT,LED9_PIN, false);
    }
-   if ((int) *channelData > 1073741824) {
+   if (channelData > ((rango*7/9) + *min)) {
       setLed(LED8_PORT,LED8_PIN, false);
    }
-   if ((int) *channelData > 536870912) {
+   if (channelData > ((rango*6/9) + *min)) {
       setLed(LED7_PORT,LED7_PIN, false);
    }
-   if ((int) *channelData > 0) {
+   if (channelData > ((rango*5/9) + *min)) {
       setLed(LED6_PORT,LED6_PIN, false);
    }
-   if ((int) *channelData < 0) {
+   if (channelData > ((rango*4/9) + *min)) {
       setLed(LED5_PORT,LED5_PIN, false);
    }
-   if ((int) *channelData < -536870912) {
+   if (channelData > ((rango*3/9) + *min)) {
       setLed(LED4_PORT,LED4_PIN, false);
    }
-   if ((int) *channelData < -1073741824) {
+   if (channelData > ((rango*2/9) + *min)) {
       setLed(LED3_PORT,LED3_PIN, false);
    }
-   if ((int) *channelData < -1610612736) {
+   if (channelData > ((rango*1/9) + *min)) {
       setLed(LED2_PORT,LED2_PIN, false);
    }
-   if ((int) *channelData < -1962934272) {
+   if (channelData >= (*min)) {
       setLed(LED1_PORT,LED1_PIN, false);
    }
 }

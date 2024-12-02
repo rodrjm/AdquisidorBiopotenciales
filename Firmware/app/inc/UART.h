@@ -46,7 +46,7 @@ void UART_DeInit ();
  * @param data[] Arreglo de datos a enviar
  * @param numByte Numero de bytes a enviar  
  */
-void UART_Send(int data[], int numBytes);
+void UART_Send(uint32_t data[], int numBytes);
 
 
 /**

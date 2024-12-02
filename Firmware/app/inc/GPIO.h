@@ -116,7 +116,5 @@ void GPIO_select_kSPS(uint8_t current_kSPS);
 
 void GPIO_start(uint8_t currentChannel);
 
-void GPIO_getSignal(uint32_t *channelData);
-
-
+void GPIO_getSignal(uint32_t channelData,uint32_t *min, uint32_t *max);
 #endif /* GPIO_H_ */

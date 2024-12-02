@@ -87,7 +87,7 @@ void ADS131E08_Init(){
 	delayMs(10);
 	GPIO_setPinState(ADS_RST_PORT, ADS_RST_PIN, true);	// Establece el ADS Reset pin en HIGH
 	delayMs(10);
-	ADS131E08_sendCommand(_SDATAC);	// Se envï¿½a el comando SDATAC
+	ADS131E08_sendCommand(_SDATAC);	// Se env a el comando SDATAC
 	ADS131E08_sendCommand(_STOP);	// Se envia el comando STOP
 	delayMs(10);
 }
@@ -229,7 +229,7 @@ void ADS131E08_WREG(uint8_t _address, uint8_t _value){
    SPI_transfer(0x00); // Enviar secondByte: 0x00 para escribir solamente el registro de la direccion _address
 	delayUs(5);
    SPI_transfer(_value); // Escribir el byte en el registro
-	delayUs(10); // Despues de que finaliza la comunicaciÃ³n, siempre esperar cuatro o mas tCLK antes que CS se establezca en HIGH
+	delayUs(10); // Despues de que finaliza la comunicación, siempre esperar cuatro o mas tCLK antes que CS se establezca en HIGH
 	ADS131E08_csHigh(); // Finalizar la comunicacion SPI
    delayUs(10);
    
@@ -300,28 +300,25 @@ void ADS131E08_getChannelData(uint8_t *sampleCnt, uint32_t *data)
 
 	for(i=0; i<8; i++) // Leer 16 bits de datos por cada canal en 2 byte chunks
 	{
-      inByte=SPI_transfer(0x00);
-      byte2=SPI_transfer(0x00);
-      byte3=SPI_transfer(0x00);
-      data[i] = (byte3<<24) | (byte2<<16) | (inByte<<8);
-      if(inByte & (1<<7)){
-         data[i] = (~(data[i]) +1); 
-         data[i] |= (0xFF);
-		}
-      /*for(j=0; j<3; j++)
+      //inByte=SPI_transfer(0x00);
+      //byte2=SPI_transfer(0x00);
+      //byte3=SPI_transfer(0x00);
+      //data[i] = (byte3<<24) | (byte2<<16) | (inByte<<8);
+      //if(inByte & (1<<7)){
+        // data[i] = (~(data[i]) +1); 
+         //data[i] |= (0xFF);
+		//}
+      for(j=0; j<3; j++)
 		{
 			inByte = SPI_transfer(0x00);
 			data[i] = (data[i]<<8) | inByte;
-		}*/
+		}
 	}
-   /*
    for(i=0;i<8;i++){
-      if (data[i] & (1<<23)) { // Pasar de 24 bits a 32 bits
+      if (data[i] & 0x800000) { // Pasar de 24 bits a 32 bits
          data[i] |= 0xFF000000;
-      } else {
-         data[i] &= 0x00FFFFFF;
-      }
-   }*/
+      } 
+   }
 	ADS131E08_csHigh(); // Finalizar la comunicacion SPI
    
 	if(firstDataPacket == TRUE)
