@@ -644,7 +644,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x16 app/src/Drv_Devices.o
  .debug_macro   0x00000000       0x29 app/src/Drv_Devices.o
  .debug_line    0x00000000      0x8a8 app/src/Drv_Devices.o
- .debug_str     0x00000000    0x1c3ed app/src/Drv_Devices.o
+ .debug_str     0x00000000    0x1c3ee app/src/Drv_Devices.o
  .comment       0x00000000       0x69 app/src/Drv_Devices.o
  .debug_frame   0x00000000       0x48 app/src/Drv_Devices.o
  .ARM.attributes
@@ -828,7 +828,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x2e app/src/biopotenciales.o
  .debug_macro   0x00000000       0x10 app/src/biopotenciales.o
  .debug_line    0x00000000      0x849 app/src/biopotenciales.o
- .debug_str     0x00000000    0x1c2bc app/src/biopotenciales.o
+ .debug_str     0x00000000    0x1c2bd app/src/biopotenciales.o
  .comment       0x00000000       0x69 app/src/biopotenciales.o
  .ARM.attributes
                 0x00000000       0x39 app/src/biopotenciales.o
@@ -8239,42 +8239,42 @@ OUTPUT(adquisidorBiopotenciales.elf elf32-littlearm)
  .debug_line    0x0000a0cd      0x24b lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
  .debug_line    0x0000a318      0xd8c lpc_board_ciaa_edu_4337/src/board.o
 
-.debug_str      0x00000000    0x1e90c
- .debug_str     0x00000000    0x1c299 app/src/GPIO.o
-                              0x1c575 (size before relaxing)
- .debug_str     0x0001c299      0x255 app/src/ADS131E08.o
-                              0x1c522 (size before relaxing)
- .debug_str     0x0001c4ee      0x13b app/src/UART.o
-                              0x1535b (size before relaxing)
- .debug_str     0x0001c629      0x2ec app/src/SPI.o
-                              0x154d1 (size before relaxing)
- .debug_str     0x0001c915      0x463 app/src/funcionamiento.o
-                              0x1c8a8 (size before relaxing)
- .debug_str     0x0001cd78       0x85 app/src/adquisidorBiopotenciales.o
-                              0x1c700 (size before relaxing)
- .debug_str     0x0001cdfd      0x345 lpc_chip_43xx/src/sysinit_18xx_43xx.o
+.debug_str      0x00000000    0x1e90d
+ .debug_str     0x00000000    0x1c29a app/src/GPIO.o
+                              0x1c576 (size before relaxing)
+ .debug_str     0x0001c29a      0x255 app/src/ADS131E08.o
+                              0x1c523 (size before relaxing)
+ .debug_str     0x0001c4ef      0x13b app/src/UART.o
+                              0x1535c (size before relaxing)
+ .debug_str     0x0001c62a      0x2ec app/src/SPI.o
+                              0x154d2 (size before relaxing)
+ .debug_str     0x0001c916      0x463 app/src/funcionamiento.o
+                              0x1c8a9 (size before relaxing)
+ .debug_str     0x0001cd79       0x85 app/src/adquisidorBiopotenciales.o
+                              0x1c701 (size before relaxing)
+ .debug_str     0x0001cdfe      0x345 lpc_chip_43xx/src/sysinit_18xx_43xx.o
                               0x15de7 (size before relaxing)
- .debug_str     0x0001d142       0xc0 lpc_chip_43xx/src/fpu_init.o
+ .debug_str     0x0001d143       0xc0 lpc_chip_43xx/src/fpu_init.o
                                0x9946 (size before relaxing)
- .debug_str     0x0001d202      0x212 lpc_chip_43xx/src/chip_18xx_43xx.o
+ .debug_str     0x0001d203      0x212 lpc_chip_43xx/src/chip_18xx_43xx.o
                               0x15e89 (size before relaxing)
- .debug_str     0x0001d414      0x422 lpc_chip_43xx/src/clock_18xx_43xx.o
+ .debug_str     0x0001d415      0x422 lpc_chip_43xx/src/clock_18xx_43xx.o
                               0x1635c (size before relaxing)
- .debug_str     0x0001d836      0x415 lpc_chip_43xx/src/ssp_18xx_43xx.o
+ .debug_str     0x0001d837      0x415 lpc_chip_43xx/src/ssp_18xx_43xx.o
                               0x15b2a (size before relaxing)
- .debug_str     0x0001dc4b       0xe7 lpc_chip_43xx/src/gpio_18xx_43xx.o
+ .debug_str     0x0001dc4c       0xe7 lpc_chip_43xx/src/gpio_18xx_43xx.o
                               0x151d7 (size before relaxing)
- .debug_str     0x0001dd32      0x35d lpc_chip_43xx/src/uart_18xx_43xx.o
+ .debug_str     0x0001dd33      0x35d lpc_chip_43xx/src/uart_18xx_43xx.o
                               0x15f99 (size before relaxing)
- .debug_str     0x0001e08f       0x41 lpc_board_ciaa_edu_4337/src/sysinit.o
+ .debug_str     0x0001e090       0x41 lpc_board_ciaa_edu_4337/src/sysinit.o
                               0x1937d (size before relaxing)
- .debug_str     0x0001e0d0       0x41 lpc_board_ciaa_edu_4337/src/crp.o
+ .debug_str     0x0001e0d1       0x41 lpc_board_ciaa_edu_4337/src/crp.o
                                0x2de6 (size before relaxing)
- .debug_str     0x0001e111       0xc9 lpc_board_ciaa_edu_4337/src/board_sysinit.o
+ .debug_str     0x0001e112       0xc9 lpc_board_ciaa_edu_4337/src/board_sysinit.o
                               0x1a156 (size before relaxing)
- .debug_str     0x0001e1da      0x1f7 lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
+ .debug_str     0x0001e1db      0x1f7 lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
                                0x2fc7 (size before relaxing)
- .debug_str     0x0001e3d1      0x53b lpc_board_ciaa_edu_4337/src/board.o
+ .debug_str     0x0001e3d2      0x53b lpc_board_ciaa_edu_4337/src/board.o
                               0x1a64b (size before relaxing)
 
 .comment        0x00000000       0x68
