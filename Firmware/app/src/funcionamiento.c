@@ -20,6 +20,11 @@ bool is_running = FALSE;
 uint8_t estado;
 
 /**
+ * @brief Variable utilizada para indicar el modo en el cual se leen las senales desde el sensor
+ */
+uint8_t currentMode;
+
+/**
  * @brief Variable utilizada para indicar el canal que se visualizara en el vumetro
  */
 uint8_t currentChannel;
@@ -42,6 +47,7 @@ void Funcionamiento_Init()
 	delayMs(50);
 	ADS131E08_defaultConfig();
 	estado = 0;
+   currentMode = 0;
 	currentChannel = 5;
 	current_kSPS = 6;
 	is_running = FALSE;
@@ -72,6 +78,10 @@ void Funcionamiento_Menu()
             if (getPulsador(BOARD_TEC_3)) {
                GPIO_select_kSPS(current_kSPS);
                estado = 2;
+            }
+            if (getPulsador(BOARD_TEC_4)) {
+               GPIO_selectMode(currentMode);
+               estado = 3;
             }
             break;
          }
@@ -119,6 +129,22 @@ void Funcionamiento_Menu()
             if (getPulsador(BOARD_TEC_1)) {
                GPIO_stopped(currentChannel);
                ADS131E08_selectkSPS(current_kSPS);
+               estado = 0;
+            }
+            break;
+         }
+         case 3: // Estado: SELECT MODE
+         {
+            if (getPulsador(BOARD_TEC_3)) {
+               currentMode++;
+               if (currentMode == 2) {
+                  currentMode = 0;
+               }
+               GPIO_selectMode(currentMode);
+            }
+            if (getPulsador(BOARD_TEC_1)) {
+               GPIO_stopped(currentChannel);
+               ADS131E08_selectMode(currentMode, currentChannel);
                estado = 0;
             }
             break;

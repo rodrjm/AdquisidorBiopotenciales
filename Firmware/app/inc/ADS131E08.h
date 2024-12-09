@@ -707,7 +707,11 @@ uint8_t ADS131E08_getDeviceID();
 
 void ADS131E08_getChannelData(uint8_t *sampleCnt, uint32_t *data);
 
-void ADS131E08_configureTestSignal();
+void ADS131E08_configureTestSignal(uint8_t currentChannel);
+
+void ADS131E08_configureExternalSignal(uint8_t currentChannel);
+
+void ADS131E08_selectMode(uint8_t currentMode, uint8_t currentChannel);
 
 void ADS131E08_selectChannel(uint8_t currentChannel);
 

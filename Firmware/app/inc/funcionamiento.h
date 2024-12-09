@@ -21,6 +21,11 @@ static volatile uint32_t tick_ct = 0;
 uint8_t estado;
 
 /**
+ * @brief Variable utilizada para indicar el modo en el cual se leen las senales desde el sensor
+ */
+uint8_t currentMode;
+
+/**
  * @brief Variable utilizada para indicar el canal que se visualizara en el vumetro
  */
 uint8_t currentChannel;

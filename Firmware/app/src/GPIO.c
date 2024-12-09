@@ -247,6 +247,24 @@ void GPIO_displayCurrentkSPS(uint8_t current_kSPS) {
    }
 }
 
+void GPIO_displayCurrentMode(uint8_t currentMode) {
+   switch (currentMode)
+   {
+      case 0:
+      {
+         setLed(LED1_PORT,LED1_PIN, false);
+         break;
+      }
+      case 1:
+      {
+         setLed(LED2_PORT,LED2_PIN, false);
+         break;
+      }
+      default:
+         break;
+   }
+}
+
 void GPIO_setBoardLEDs_channel(uint8_t aux) {
    switch (aux)
    {
@@ -368,8 +386,31 @@ void GPIO_setBoardLEDs_kSPS(uint8_t aux) {
    }
 }
 
+void GPIO_setBoardLEDs_mode(uint8_t aux) {
+   switch (aux)
+   {
+      case 0:
+      {
+         Board_LED_Set(LED_1, true);
+         Board_LED_Set(LED_2, true);
+         Board_LED_Set(LED_3, false);
+         break;
+      }
+      case 1:
+      {
+         Board_LED_Set(LED_1, true);
+         Board_LED_Set(LED_2, false);
+         Board_LED_Set(LED_3, true);
+         break;
+      }
+      default:
+         break;
+   }
+}
+
 void GPIO_stopped(uint8_t currentChannel) {
    GPIO_displayOFF();
+   GPIO_displayCurrentChannel(currentChannel);
    Board_LED_Set(LED_RED, false);
    Board_LED_Set(LED_GREEN, true);
    Board_LED_Set(LED_BLUE, true);
@@ -392,6 +433,15 @@ void GPIO_select_kSPS(uint8_t current_kSPS) {
    Board_LED_Set(LED_GREEN, true);
    Board_LED_Set(LED_BLUE, false);
    GPIO_setBoardLEDs_kSPS(current_kSPS);
+}
+
+void GPIO_selectMode(uint8_t currentMode) {
+   GPIO_displayOFF();
+   GPIO_displayCurrentMode(currentMode);
+   Board_LED_Set(LED_RED, true);
+   Board_LED_Set(LED_GREEN, false);
+   Board_LED_Set(LED_BLUE, false);
+   GPIO_setBoardLEDs_mode(currentMode);
 }
 
 void GPIO_start(uint8_t currentChannel) {
