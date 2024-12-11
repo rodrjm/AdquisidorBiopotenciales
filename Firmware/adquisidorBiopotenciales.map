@@ -7214,11 +7214,11 @@ END GROUP
                 0x1a000ba4                ADS131E08_isDataAvailable
  *fill*         0x1a000bb6        0x2 ff
  .text.ADS131E08_getChannelData
-                0x1a000bb8       0xac app/src/ADS131E08.o
+                0x1a000bb8       0xbc app/src/ADS131E08.o
                 0x1a000bb8                ADS131E08_getChannelData
  .text.ADS131E08_configureTestSignal
-                0x1a000c64       0x54 app/src/ADS131E08.o
-                0x1a000c64                ADS131E08_configureTestSignal
+                0x1a000c74       0x44 app/src/ADS131E08.o
+                0x1a000c74                ADS131E08_configureTestSignal
  .text.ADS131E08_configureExternalSignal
                 0x1a000cb8       0x44 app/src/ADS131E08.o
                 0x1a000cb8                ADS131E08_configureExternalSignal
@@ -7613,25 +7613,25 @@ END GROUP
                 0x10008000                PROVIDE (_vStackTop = (__top_RamLoc32 - 0x0))
 OUTPUT(adquisidorBiopotenciales.elf elf32-littlearm)
 
-.debug_info     0x00000000    0x142a5
+.debug_info     0x00000000    0x14273
  .debug_info    0x00000000     0x2ec2 app/src/GPIO.o
- .debug_info    0x00002ec2     0x1c36 app/src/ADS131E08.o
- .debug_info    0x00004af8      0x8f2 app/src/UART.o
- .debug_info    0x000053ea      0x780 app/src/SPI.o
- .debug_info    0x00005b6a     0x1a02 app/src/funcionamiento.o
- .debug_info    0x0000756c     0x161a app/src/adquisidorBiopotenciales.o
- .debug_info    0x00008b86      0xb94 lpc_chip_43xx/src/sysinit_18xx_43xx.o
- .debug_info    0x0000971a      0x156 lpc_chip_43xx/src/fpu_init.o
- .debug_info    0x00009870      0xc97 lpc_chip_43xx/src/chip_18xx_43xx.o
- .debug_info    0x0000a507     0x1b68 lpc_chip_43xx/src/clock_18xx_43xx.o
- .debug_info    0x0000c06f     0x1a33 lpc_chip_43xx/src/ssp_18xx_43xx.o
- .debug_info    0x0000daa2      0x568 lpc_chip_43xx/src/gpio_18xx_43xx.o
- .debug_info    0x0000e00a     0x1981 lpc_chip_43xx/src/uart_18xx_43xx.o
- .debug_info    0x0000f98b      0x9e3 lpc_board_ciaa_edu_4337/src/sysinit.o
- .debug_info    0x0001036e       0x40 lpc_board_ciaa_edu_4337/src/crp.o
- .debug_info    0x000103ae     0x15bc lpc_board_ciaa_edu_4337/src/board_sysinit.o
- .debug_info    0x0001196a      0x33f lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
- .debug_info    0x00011ca9     0x25fc lpc_board_ciaa_edu_4337/src/board.o
+ .debug_info    0x00002ec2     0x1c04 app/src/ADS131E08.o
+ .debug_info    0x00004ac6      0x8f2 app/src/UART.o
+ .debug_info    0x000053b8      0x780 app/src/SPI.o
+ .debug_info    0x00005b38     0x1a02 app/src/funcionamiento.o
+ .debug_info    0x0000753a     0x161a app/src/adquisidorBiopotenciales.o
+ .debug_info    0x00008b54      0xb94 lpc_chip_43xx/src/sysinit_18xx_43xx.o
+ .debug_info    0x000096e8      0x156 lpc_chip_43xx/src/fpu_init.o
+ .debug_info    0x0000983e      0xc97 lpc_chip_43xx/src/chip_18xx_43xx.o
+ .debug_info    0x0000a4d5     0x1b68 lpc_chip_43xx/src/clock_18xx_43xx.o
+ .debug_info    0x0000c03d     0x1a33 lpc_chip_43xx/src/ssp_18xx_43xx.o
+ .debug_info    0x0000da70      0x568 lpc_chip_43xx/src/gpio_18xx_43xx.o
+ .debug_info    0x0000dfd8     0x1981 lpc_chip_43xx/src/uart_18xx_43xx.o
+ .debug_info    0x0000f959      0x9e3 lpc_board_ciaa_edu_4337/src/sysinit.o
+ .debug_info    0x0001033c       0x40 lpc_board_ciaa_edu_4337/src/crp.o
+ .debug_info    0x0001037c     0x15bc lpc_board_ciaa_edu_4337/src/board_sysinit.o
+ .debug_info    0x00011938      0x33f lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
+ .debug_info    0x00011c77     0x25fc lpc_board_ciaa_edu_4337/src/board.o
 
 .debug_abbrev   0x00000000     0x3248
  .debug_abbrev  0x00000000      0x439 app/src/GPIO.o
@@ -7838,25 +7838,25 @@ OUTPUT(adquisidorBiopotenciales.elf elf32-littlearm)
  .debug_macro   0x0000959c      0x4b6 lpc_board_ciaa_edu_4337/src/board.o
  .debug_macro   0x00009a52       0x16 lpc_board_ciaa_edu_4337/src/board.o
 
-.debug_line     0x00000000     0xac7f
+.debug_line     0x00000000     0xac93
  .debug_line    0x00000000      0xea3 app/src/GPIO.o
- .debug_line    0x00000ea3      0xd1a app/src/ADS131E08.o
- .debug_line    0x00001bbd      0x78a app/src/UART.o
- .debug_line    0x00002347      0x7b1 app/src/SPI.o
- .debug_line    0x00002af8      0xbbc app/src/funcionamiento.o
- .debug_line    0x000036b4      0x89c app/src/adquisidorBiopotenciales.o
- .debug_line    0x00003f50      0x893 lpc_chip_43xx/src/sysinit_18xx_43xx.o
- .debug_line    0x000047e3      0x2ae lpc_chip_43xx/src/fpu_init.o
- .debug_line    0x00004a91      0x6f1 lpc_chip_43xx/src/chip_18xx_43xx.o
- .debug_line    0x00005182     0x1389 lpc_chip_43xx/src/clock_18xx_43xx.o
- .debug_line    0x0000650b     0x11a1 lpc_chip_43xx/src/ssp_18xx_43xx.o
- .debug_line    0x000076ac      0x78b lpc_chip_43xx/src/gpio_18xx_43xx.o
- .debug_line    0x00007e37      0xe23 lpc_chip_43xx/src/uart_18xx_43xx.o
- .debug_line    0x00008c5a      0x7c1 lpc_board_ciaa_edu_4337/src/sysinit.o
- .debug_line    0x0000941b       0x42 lpc_board_ciaa_edu_4337/src/crp.o
- .debug_line    0x0000945d      0x8a3 lpc_board_ciaa_edu_4337/src/board_sysinit.o
- .debug_line    0x00009d00      0x24b lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
- .debug_line    0x00009f4b      0xd34 lpc_board_ciaa_edu_4337/src/board.o
+ .debug_line    0x00000ea3      0xd2e app/src/ADS131E08.o
+ .debug_line    0x00001bd1      0x78a app/src/UART.o
+ .debug_line    0x0000235b      0x7b1 app/src/SPI.o
+ .debug_line    0x00002b0c      0xbbc app/src/funcionamiento.o
+ .debug_line    0x000036c8      0x89c app/src/adquisidorBiopotenciales.o
+ .debug_line    0x00003f64      0x893 lpc_chip_43xx/src/sysinit_18xx_43xx.o
+ .debug_line    0x000047f7      0x2ae lpc_chip_43xx/src/fpu_init.o
+ .debug_line    0x00004aa5      0x6f1 lpc_chip_43xx/src/chip_18xx_43xx.o
+ .debug_line    0x00005196     0x1389 lpc_chip_43xx/src/clock_18xx_43xx.o
+ .debug_line    0x0000651f     0x11a1 lpc_chip_43xx/src/ssp_18xx_43xx.o
+ .debug_line    0x000076c0      0x78b lpc_chip_43xx/src/gpio_18xx_43xx.o
+ .debug_line    0x00007e4b      0xe23 lpc_chip_43xx/src/uart_18xx_43xx.o
+ .debug_line    0x00008c6e      0x7c1 lpc_board_ciaa_edu_4337/src/sysinit.o
+ .debug_line    0x0000942f       0x42 lpc_board_ciaa_edu_4337/src/crp.o
+ .debug_line    0x00009471      0x8a3 lpc_board_ciaa_edu_4337/src/board_sysinit.o
+ .debug_line    0x00009d14      0x24b lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
+ .debug_line    0x00009f5f      0xd34 lpc_board_ciaa_edu_4337/src/board.o
 
 .debug_str      0x00000000    0x1e99a
  .debug_str     0x00000000    0x1c2f0 app/src/GPIO.o

@@ -298,7 +298,7 @@ void ADS131E08_getChannelData(uint8_t *sampleCnt, uint32_t *data)
 		boardStat = (boardStat << 8) | inByte;
 	}
 
-	for(i=0; i<8; i++) // Leer 16 bits de datos por cada canal en 2 byte chunks
+	for(i=0; i<8; i++) // Leer 16 bits de datos por cada canal en 3 byte chunks
 	{
       //inByte=SPI_transfer(0x00);
       //byte2=SPI_transfer(0x00);
@@ -316,8 +316,12 @@ void ADS131E08_getChannelData(uint8_t *sampleCnt, uint32_t *data)
 	}
    for(i=0;i<8;i++){
       if (data[i] & 0x800000) { // Pasar de 24 bits a 32 bits
-         data[i] |= 0xFF000000;
-      } 
+         data[i] = (~(data[i]) + 1);
+         data[i] &= 0xAAFFFFFF;
+         data[i] |= 0x00800000;         
+      } else {
+         data[i] |= 0xAA000000;
+      }
    }
 	ADS131E08_csHigh(); // Finalizar la comunicacion SPI
    
@@ -339,9 +343,9 @@ void ADS131E08_configureTestSignal(uint8_t currentChannel){
    }
    ADS131E08_WREG(currentChannel, 0x05);	// Establecer el canal 1 para el modo de TEST
    
-   ADS131E08_WREG(_CONFIG1_ADDRESS, 0x96);	// Establece la configuracion en CONFIG1 para que las muestras sean de 1kSPS 
+   //ADS131E08_WREG(_CONFIG1_ADDRESS, 0x96);	// Establece la configuracion en CONFIG1 para que las muestras sean de 1kSPS 
    ADS131E08_WREG(_CONFIG2_ADDRESS, 0xF0);	// Establece la configuracion en CONFIG2 para que se generen las senales internas de test
-	ADS131E08_WREG(_CONFIG3_ADDRESS, 0xC0);	// Establece la configuracion en CONFIG3 para habilitar el bufer de referencia interno
+	//ADS131E08_WREG(_CONFIG3_ADDRESS, 0xC0);	// Establece la configuracion en CONFIG3 para habilitar el bufer de referencia interno
    
    delayMs(1);
 }
