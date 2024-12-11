@@ -48,10 +48,10 @@ while contador<=muestras
         muestra_actual(:)=fread(puerto,4,'uint8');
         %muestra_actual(:)=read(puerto,4,'uint8'); % SE USA CON SERIALPORT
         matriz_muestras(contador,:)=muestra_actual;
-        %disp(['Muestra actual: ', num2str(muestra_actual)]); 
+        disp(['Muestra actual: ', num2str(muestra_actual)]); 
         %valor_ecg = matriz_muestras(contador,1);
         valor_ecg = matriz_muestras(contador,1)*2^0 + matriz_muestras(contador,2)*2^8 + matriz_muestras(contador,3)*2^16 + matriz_muestras(contador,4)*2^24;
-        %disp(['Valor ECG: ', num2str(valor_ecg)]);
+        disp(['Valor ECG: ', num2str(valor_ecg)]);
         % Convertir a decimal con signo
         if (matriz_muestras(contador,4) && 0x800000)  % Si el bit más significativo es 
             valor_ecg = double(valor_ecg)-2^32;

@@ -1,3 +1,4 @@
+import struct
 import serial
 import time
 import numpy as np
@@ -26,8 +27,32 @@ Fs = 1000
 T = 1/Fs
 t = np.arange(muestras) * T
 ECG = np.zeros(muestras)
-LSB = 2.4 / (2**24)
+LSB = (2 * 2.4) / (2**24)
 data_buffer = []
+
+def procesar_datos(data):
+    if len(data) == 3:
+        # Extract the most significant bit
+        msb = (data[2] >> 7) & 1
+        print("MSB:", bin(msb))
+
+        # Convert the bytes to an integer
+        valor_ecg = int.from_bytes(data, byteorder='little', signed=True)
+        print("Antes de la máscara:", bin(valor_ecg))
+
+        # Aplicar la máscara antes de modificar el bit más significativo
+        valor_ecg &= 0x007FFFFF
+        print("Después de la máscara:", bin(valor_ecg))
+
+        # Set the most significant bit if necessary
+        if msb == 1:
+            valor_ecg = -valor_ecg
+            print("Después de establecer el bit más significativo:", bin(valor_ecg))
+
+        return valor_ecg
+    else:
+        print("Tamaño de datos incorrecto")
+        return None
 
 # Función para actualizar la gráfica
 def update():
@@ -35,26 +60,33 @@ def update():
     try:
         # Verificar si llega un nuevo byte que indique el comienzo de un nuevo dato
         data = ser.read(1)
-        print("Byte de arranque: ", data)  # Agregar un mensaje de depuración
+        # print("Byte de arranque: ", data)  # Agregar un mensaje de depuración
         if data == b'\xaa':
             # Leer 3 bytes de datos
             data = ser.read(3)
         
             data_buffer.append(data)
             if len(data_buffer) >= 50:
+                print("Valor data: ", data)  # Agregar un mensaje de depuración
                 # Convertir los bytes a un entero de 32 bits con signo
-                valor_ecg = int.from_bytes(data, byteorder='little', signed=True)
-                print("Valor ECG: ", valor_ecg)  # Agregar un mensaje de depuración
-
+                #valor_ecg = int.from_bytes(data, byteorder='little', signed=True)
+                valor_ecg = procesar_datos(data)
+                print("Valor ECG (antes de escalar): ", valor_ecg)  # Agregar un mensaje de depuración
+                
+                print("LSB: ", LSB)  # Agregar un mensaje de depuración
                 # Convertir a voltaje
                 ECG[-1] = valor_ecg * LSB
+                print("Valor ECG (después de escalar):", ECG[-1])  # Agregar mensaje de depuración
                 # Desplazar los datos hacia la izquierda
-                ECG[:-1] = ECG[1:]
+                ECG = np.roll(ECG, -1)
                 # Actualizar la gráfica
                 curve.setData(t, ECG)
 
                 # Actualizar los datos de la curva y el rango del eje y
                 plot.setYRange(min(ECG) - 0.01, max(ECG) + 0.01, padding=0)  # Usa min y max de ECG
+
+
+                plot.setXRange(t[-100], t[-1], padding=0)  # Mostrar los últimos puntos en el eje X
 
                 data_buffer.clear()
 
