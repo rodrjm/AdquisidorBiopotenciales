@@ -451,6 +451,7 @@ void GPIO_start(uint8_t currentChannel) {
    Board_LED_Set(LED_BLUE, true);
 }
 
+/*
 void GPIO_getSignal(uint32_t channelData, uint32_t *min, uint32_t *max) {
    GPIO_displayOFF();
    if (channelData > *max) {
@@ -495,6 +496,54 @@ void GPIO_getSignal(uint32_t channelData, uint32_t *min, uint32_t *max) {
       setLed(LED2_PORT,LED2_PIN, false);
    }
    if (channelData >= (*min)) {
+      setLed(LED1_PORT,LED1_PIN, false);
+   }
+}
+*/
+
+void GPIO_getSignal(uint32_t channelData) {
+   GPIO_displayOFF();
+   uint8_t negativo = 0;
+   int32_t data = channelData;
+   uint8_t msb = (data >> 23) & 1;
+   UART_Send(&data,4);
+   if (msb == 1) {
+      negativo = 1;
+   }   
+   data &= 0x007FFFFF;
+   if (negativo) {
+      data = -data;
+      UART_Send(&data,4);
+   }
+   
+   if (data > 6710484) {
+      setLed(LED10_PORT,LED10_PIN, false);
+   }
+   if (data > 5032863) {
+      setLed(LED9_PORT,LED9_PIN, false);
+   }
+   if (data > 3355242) {
+      setLed(LED8_PORT,LED8_PIN, false);
+   }
+   if (data > 1677621) {
+      setLed(LED7_PORT,LED7_PIN, false);
+   }
+   if (data > 0) {
+      setLed(LED6_PORT,LED6_PIN, false);
+   }
+   if (data < 0) {
+      setLed(LED5_PORT,LED5_PIN, false);
+   }
+   if (data < -1677621) {
+      setLed(LED4_PORT,LED4_PIN, false);
+   }
+   if (data < -3355242) {
+      setLed(LED3_PORT,LED3_PIN, false);
+   }
+   if (data < -5032863) {
+      setLed(LED2_PORT,LED2_PIN, false);
+   }
+   if (data < -6710484) {
       setLed(LED1_PORT,LED1_PIN, false);
    }
 }

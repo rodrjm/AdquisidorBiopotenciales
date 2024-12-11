@@ -7018,7 +7018,7 @@ END GROUP
  *(.rodata.$Flash2*)
  *(.rodata.$MFlashB512*)
 
-.text           0x1a000000     0x2344
+.text           0x1a000000     0x2304
  FILL mask 0xff
                 0x1a000000                __vectors_start__ = ABSOLUTE (.)
  *(.isr_vector)
@@ -7027,19 +7027,19 @@ END GROUP
                 0x1a000114                . = ALIGN (0x4)
                 0x1a000114                __section_table_start = .
                 0x1a000114                __data_section_table = .
-                0x1a000114        0x4 LONG 0x1a00234c LOADADDR (.data)
+                0x1a000114        0x4 LONG 0x1a00230c LOADADDR (.data)
                 0x1a000118        0x4 LONG 0x10000000 ADDR (.data)
                 0x1a00011c        0x4 LONG 0x4 SIZEOF (.data)
-                0x1a000120        0x4 LONG 0x1a00234c LOADADDR (.data_RAM2)
+                0x1a000120        0x4 LONG 0x1a00230c LOADADDR (.data_RAM2)
                 0x1a000124        0x4 LONG 0x10080000 ADDR (.data_RAM2)
                 0x1a000128        0x4 LONG 0x0 SIZEOF (.data_RAM2)
-                0x1a00012c        0x4 LONG 0x1a00234c LOADADDR (.data_RAM3)
+                0x1a00012c        0x4 LONG 0x1a00230c LOADADDR (.data_RAM3)
                 0x1a000130        0x4 LONG 0x20000000 ADDR (.data_RAM3)
                 0x1a000134        0x4 LONG 0x0 SIZEOF (.data_RAM3)
-                0x1a000138        0x4 LONG 0x1a00234c LOADADDR (.data_RAM4)
+                0x1a000138        0x4 LONG 0x1a00230c LOADADDR (.data_RAM4)
                 0x1a00013c        0x4 LONG 0x20008000 ADDR (.data_RAM4)
                 0x1a000140        0x4 LONG 0x0 SIZEOF (.data_RAM4)
-                0x1a000144        0x4 LONG 0x1a00234c LOADADDR (.data_RAM5)
+                0x1a000144        0x4 LONG 0x1a00230c LOADADDR (.data_RAM5)
                 0x1a000148        0x4 LONG 0x2000c000 ADDR (.data_RAM5)
                 0x1a00014c        0x4 LONG 0x0 SIZEOF (.data_RAM5)
                 0x1a000150                __data_section_table_end = .
@@ -7178,300 +7178,300 @@ END GROUP
                 0x1a00082e                GPIO_start
  *fill*         0x1a00084e        0x2 ff
  .text.GPIO_getSignal
-                0x1a000850      0x158 app/src/GPIO.o
+                0x1a000850      0x11c app/src/GPIO.o
                 0x1a000850                GPIO_getSignal
  .text.ADS131E08_signalDown
-                0x1a0009a8       0x28 app/src/ADS131E08.o
-                0x1a0009a8                ADS131E08_signalDown
+                0x1a00096c       0x28 app/src/ADS131E08.o
+                0x1a00096c                ADS131E08_signalDown
  .text.ADS131E08_csLow
-                0x1a0009d0        0xe app/src/ADS131E08.o
-                0x1a0009d0                ADS131E08_csLow
+                0x1a000994        0xe app/src/ADS131E08.o
+                0x1a000994                ADS131E08_csLow
  .text.ADS131E08_csHigh
-                0x1a0009de        0xe app/src/ADS131E08.o
-                0x1a0009de                ADS131E08_csHigh
+                0x1a0009a2        0xe app/src/ADS131E08.o
+                0x1a0009a2                ADS131E08_csHigh
  .text.ADS131E08_sendCommand
-                0x1a0009ec       0x26 app/src/ADS131E08.o
-                0x1a0009ec                ADS131E08_sendCommand
+                0x1a0009b0       0x26 app/src/ADS131E08.o
+                0x1a0009b0                ADS131E08_sendCommand
  .text.ADS131E08_Init
-                0x1a000a12       0x50 app/src/ADS131E08.o
-                0x1a000a12                ADS131E08_Init
- *fill*         0x1a000a62        0x2 ff
+                0x1a0009d6       0x50 app/src/ADS131E08.o
+                0x1a0009d6                ADS131E08_Init
+ *fill*         0x1a000a26        0x2 ff
  .text.ADS131E08_startADS
-                0x1a000a64       0x30 app/src/ADS131E08.o
-                0x1a000a64                ADS131E08_startADS
+                0x1a000a28       0x30 app/src/ADS131E08.o
+                0x1a000a28                ADS131E08_startADS
  .text.ADS131E08_stopADS
-                0x1a000a94       0x16 app/src/ADS131E08.o
-                0x1a000a94                ADS131E08_stopADS
- *fill*         0x1a000aaa        0x2 ff
+                0x1a000a58       0x16 app/src/ADS131E08.o
+                0x1a000a58                ADS131E08_stopADS
+ *fill*         0x1a000a6e        0x2 ff
  .text.ADS131E08_WREG
-                0x1a000aac       0x4c app/src/ADS131E08.o
-                0x1a000aac                ADS131E08_WREG
+                0x1a000a70       0x4c app/src/ADS131E08.o
+                0x1a000a70                ADS131E08_WREG
  .text.ADS131E08_defaultConfig
-                0x1a000af8       0xac app/src/ADS131E08.o
-                0x1a000af8                ADS131E08_defaultConfig
+                0x1a000abc       0xac app/src/ADS131E08.o
+                0x1a000abc                ADS131E08_defaultConfig
  .text.ADS131E08_isDataAvailable
-                0x1a000ba4       0x12 app/src/ADS131E08.o
-                0x1a000ba4                ADS131E08_isDataAvailable
- *fill*         0x1a000bb6        0x2 ff
+                0x1a000b68       0x12 app/src/ADS131E08.o
+                0x1a000b68                ADS131E08_isDataAvailable
+ *fill*         0x1a000b7a        0x2 ff
  .text.ADS131E08_getChannelData
-                0x1a000bb8       0xbc app/src/ADS131E08.o
-                0x1a000bb8                ADS131E08_getChannelData
+                0x1a000b7c       0xbc app/src/ADS131E08.o
+                0x1a000b7c                ADS131E08_getChannelData
  .text.ADS131E08_configureTestSignal
-                0x1a000c74       0x44 app/src/ADS131E08.o
-                0x1a000c74                ADS131E08_configureTestSignal
+                0x1a000c38       0x44 app/src/ADS131E08.o
+                0x1a000c38                ADS131E08_configureTestSignal
  .text.ADS131E08_configureExternalSignal
-                0x1a000cb8       0x44 app/src/ADS131E08.o
-                0x1a000cb8                ADS131E08_configureExternalSignal
+                0x1a000c7c       0x44 app/src/ADS131E08.o
+                0x1a000c7c                ADS131E08_configureExternalSignal
  .text.ADS131E08_selectMode
-                0x1a000cfc       0x14 app/src/ADS131E08.o
-                0x1a000cfc                ADS131E08_selectMode
+                0x1a000cc0       0x14 app/src/ADS131E08.o
+                0x1a000cc0                ADS131E08_selectMode
  .text.ADS131E08_selectChannel
-                0x1a000d10       0x24 app/src/ADS131E08.o
-                0x1a000d10                ADS131E08_selectChannel
+                0x1a000cd4       0x24 app/src/ADS131E08.o
+                0x1a000cd4                ADS131E08_selectChannel
  .text.ADS131E08_selectkSPS
-                0x1a000d34       0x10 app/src/ADS131E08.o
-                0x1a000d34                ADS131E08_selectkSPS
+                0x1a000cf8       0x10 app/src/ADS131E08.o
+                0x1a000cf8                ADS131E08_selectkSPS
  .text.UART_Init
-                0x1a000d44       0x34 app/src/UART.o
-                0x1a000d44                UART_Init
+                0x1a000d08       0x34 app/src/UART.o
+                0x1a000d08                UART_Init
  .text.UART_Send
-                0x1a000d78       0x14 app/src/UART.o
-                0x1a000d78                UART_Send
+                0x1a000d3c       0x14 app/src/UART.o
+                0x1a000d3c                UART_Send
  .text.SPI_Init
-                0x1a000d8c       0x28 app/src/SPI.o
-                0x1a000d8c                SPI_Init
+                0x1a000d50       0x28 app/src/SPI.o
+                0x1a000d50                SPI_Init
  .text.SPI_Setup
-                0x1a000db4       0x34 app/src/SPI.o
-                0x1a000db4                SPI_Setup
+                0x1a000d78       0x34 app/src/SPI.o
+                0x1a000d78                SPI_Setup
  .text.SPI_transfer
-                0x1a000de8       0x1c app/src/SPI.o
-                0x1a000de8                SPI_transfer
+                0x1a000dac       0x1c app/src/SPI.o
+                0x1a000dac                SPI_transfer
  .text.SysTick_Handler
-                0x1a000e04       0x10 app/src/funcionamiento.o
-                0x1a000e04                SysTick_Handler
- .text.delayMs  0x1a000e14       0x50 app/src/funcionamiento.o
-                0x1a000e14                delayMs
+                0x1a000dc8       0x10 app/src/funcionamiento.o
+                0x1a000dc8                SysTick_Handler
+ .text.delayMs  0x1a000dd8       0x50 app/src/funcionamiento.o
+                0x1a000dd8                delayMs
  .text.Funcionamiento_Init
-                0x1a000e64       0x48 app/src/funcionamiento.o
-                0x1a000e64                Funcionamiento_Init
+                0x1a000e28       0x48 app/src/funcionamiento.o
+                0x1a000e28                Funcionamiento_Init
  .text.getPulsador
-                0x1a000eac       0x2a app/src/funcionamiento.o
-                0x1a000eac                getPulsador
- *fill*         0x1a000ed6        0x2 ff
+                0x1a000e70       0x2a app/src/funcionamiento.o
+                0x1a000e70                getPulsador
+ *fill*         0x1a000e9a        0x2 ff
  .text.Funcionamiento_Menu
-                0x1a000ed8      0x24c app/src/funcionamiento.o
-                0x1a000ed8                Funcionamiento_Menu
- .text.delayUs  0x1a001124       0x50 app/src/funcionamiento.o
-                0x1a001124                delayUs
+                0x1a000e9c      0x248 app/src/funcionamiento.o
+                0x1a000e9c                Funcionamiento_Menu
+ .text.delayUs  0x1a0010e4       0x50 app/src/funcionamiento.o
+                0x1a0010e4                delayUs
  .text.InitHardware
-                0x1a001174       0x54 app/src/adquisidorBiopotenciales.o
- .text.main     0x1a0011c8       0x2c app/src/adquisidorBiopotenciales.o
-                0x1a0011c8                main
+                0x1a001134       0x54 app/src/adquisidorBiopotenciales.o
+ .text.main     0x1a001188       0x2c app/src/adquisidorBiopotenciales.o
+                0x1a001188                main
  .text.Chip_SetupCoreClock
-                0x1a0011f4      0x158 lpc_chip_43xx/src/sysinit_18xx_43xx.o
-                0x1a0011f4                Chip_SetupCoreClock
- .text.fpuInit  0x1a00134c       0x54 lpc_chip_43xx/src/fpu_init.o
-                0x1a00134c                fpuInit
+                0x1a0011b4      0x158 lpc_chip_43xx/src/sysinit_18xx_43xx.o
+                0x1a0011b4                Chip_SetupCoreClock
+ .text.fpuInit  0x1a00130c       0x54 lpc_chip_43xx/src/fpu_init.o
+                0x1a00130c                fpuInit
  .text.SystemCoreClockUpdate
-                0x1a0013a0       0x14 lpc_chip_43xx/src/chip_18xx_43xx.o
-                0x1a0013a0                SystemCoreClockUpdate
+                0x1a001360       0x14 lpc_chip_43xx/src/chip_18xx_43xx.o
+                0x1a001360                SystemCoreClockUpdate
  .text.pll_calc_divs
-                0x1a0013b4       0xa0 lpc_chip_43xx/src/clock_18xx_43xx.o
+                0x1a001374       0xa0 lpc_chip_43xx/src/clock_18xx_43xx.o
  .text.pll_get_frac
-                0x1a001454      0x100 lpc_chip_43xx/src/clock_18xx_43xx.o
+                0x1a001414      0x100 lpc_chip_43xx/src/clock_18xx_43xx.o
  .text.Chip_Clock_FindBaseClock
-                0x1a001554       0x4c lpc_chip_43xx/src/clock_18xx_43xx.o
+                0x1a001514       0x4c lpc_chip_43xx/src/clock_18xx_43xx.o
  .text.Chip_Clock_EnableCrystal
-                0x1a0015a0       0x4c lpc_chip_43xx/src/clock_18xx_43xx.o
-                0x1a0015a0                Chip_Clock_EnableCrystal
+                0x1a001560       0x4c lpc_chip_43xx/src/clock_18xx_43xx.o
+                0x1a001560                Chip_Clock_EnableCrystal
  .text.Chip_Clock_GetDividerSource
-                0x1a0015ec       0x1c lpc_chip_43xx/src/clock_18xx_43xx.o
-                0x1a0015ec                Chip_Clock_GetDividerSource
+                0x1a0015ac       0x1c lpc_chip_43xx/src/clock_18xx_43xx.o
+                0x1a0015ac                Chip_Clock_GetDividerSource
  .text.Chip_Clock_GetDividerDivisor
-                0x1a001608       0x1c lpc_chip_43xx/src/clock_18xx_43xx.o
-                0x1a001608                Chip_Clock_GetDividerDivisor
+                0x1a0015c8       0x1c lpc_chip_43xx/src/clock_18xx_43xx.o
+                0x1a0015c8                Chip_Clock_GetDividerDivisor
  .text.Chip_Clock_GetClockInputHz
-                0x1a001624       0xb8 lpc_chip_43xx/src/clock_18xx_43xx.o
-                0x1a001624                Chip_Clock_GetClockInputHz
+                0x1a0015e4       0xb8 lpc_chip_43xx/src/clock_18xx_43xx.o
+                0x1a0015e4                Chip_Clock_GetClockInputHz
  .text.Chip_Clock_CalcMainPLLValue
-                0x1a0016dc       0x80 lpc_chip_43xx/src/clock_18xx_43xx.o
-                0x1a0016dc                Chip_Clock_CalcMainPLLValue
+                0x1a00169c       0x80 lpc_chip_43xx/src/clock_18xx_43xx.o
+                0x1a00169c                Chip_Clock_CalcMainPLLValue
  .text.Chip_Clock_GetMainPLLHz
-                0x1a00175c       0x6c lpc_chip_43xx/src/clock_18xx_43xx.o
-                0x1a00175c                Chip_Clock_GetMainPLLHz
+                0x1a00171c       0x6c lpc_chip_43xx/src/clock_18xx_43xx.o
+                0x1a00171c                Chip_Clock_GetMainPLLHz
  .text.Chip_Clock_GetDivRate
-                0x1a0017c8       0x22 lpc_chip_43xx/src/clock_18xx_43xx.o
- *fill*         0x1a0017ea        0x2 ff
+                0x1a001788       0x22 lpc_chip_43xx/src/clock_18xx_43xx.o
+ *fill*         0x1a0017aa        0x2 ff
  .text.Chip_Clock_SetBaseClock
-                0x1a0017ec       0x58 lpc_chip_43xx/src/clock_18xx_43xx.o
-                0x1a0017ec                Chip_Clock_SetBaseClock
+                0x1a0017ac       0x58 lpc_chip_43xx/src/clock_18xx_43xx.o
+                0x1a0017ac                Chip_Clock_SetBaseClock
  .text.Chip_Clock_GetBaseClock
-                0x1a001844       0x26 lpc_chip_43xx/src/clock_18xx_43xx.o
-                0x1a001844                Chip_Clock_GetBaseClock
+                0x1a001804       0x26 lpc_chip_43xx/src/clock_18xx_43xx.o
+                0x1a001804                Chip_Clock_GetBaseClock
  .text.Chip_Clock_GetBaseClocktHz
-                0x1a00186a        0xc lpc_chip_43xx/src/clock_18xx_43xx.o
-                0x1a00186a                Chip_Clock_GetBaseClocktHz
- *fill*         0x1a001876        0x2 ff
+                0x1a00182a        0xc lpc_chip_43xx/src/clock_18xx_43xx.o
+                0x1a00182a                Chip_Clock_GetBaseClocktHz
+ *fill*         0x1a001836        0x2 ff
  .text.Chip_Clock_EnableOpts
-                0x1a001878       0x3c lpc_chip_43xx/src/clock_18xx_43xx.o
-                0x1a001878                Chip_Clock_EnableOpts
+                0x1a001838       0x3c lpc_chip_43xx/src/clock_18xx_43xx.o
+                0x1a001838                Chip_Clock_EnableOpts
  .text.Chip_Clock_Enable
-                0x1a0018b4       0x34 lpc_chip_43xx/src/clock_18xx_43xx.o
-                0x1a0018b4                Chip_Clock_Enable
+                0x1a001874       0x34 lpc_chip_43xx/src/clock_18xx_43xx.o
+                0x1a001874                Chip_Clock_Enable
  .text.Chip_Clock_GetRate
-                0x1a0018e8       0x4c lpc_chip_43xx/src/clock_18xx_43xx.o
-                0x1a0018e8                Chip_Clock_GetRate
+                0x1a0018a8       0x4c lpc_chip_43xx/src/clock_18xx_43xx.o
+                0x1a0018a8                Chip_Clock_GetRate
  .text.Chip_SSP_GetClockIndex
-                0x1a001934       0x14 lpc_chip_43xx/src/ssp_18xx_43xx.o
+                0x1a0018f4       0x14 lpc_chip_43xx/src/ssp_18xx_43xx.o
  .text.Chip_SSP_GetPeriphClockIndex
-                0x1a001948       0x18 lpc_chip_43xx/src/ssp_18xx_43xx.o
+                0x1a001908       0x18 lpc_chip_43xx/src/ssp_18xx_43xx.o
  .text.Chip_SSP_SetClockRate
-                0x1a001960       0x12 lpc_chip_43xx/src/ssp_18xx_43xx.o
-                0x1a001960                Chip_SSP_SetClockRate
+                0x1a001920       0x12 lpc_chip_43xx/src/ssp_18xx_43xx.o
+                0x1a001920                Chip_SSP_SetClockRate
  .text.Chip_SSP_SetMaster
-                0x1a001972       0x16 lpc_chip_43xx/src/ssp_18xx_43xx.o
-                0x1a001972                Chip_SSP_SetMaster
+                0x1a001932       0x16 lpc_chip_43xx/src/ssp_18xx_43xx.o
+                0x1a001932                Chip_SSP_SetMaster
  .text.Chip_SSP_SetBitRate
-                0x1a001988       0x3e lpc_chip_43xx/src/ssp_18xx_43xx.o
-                0x1a001988                Chip_SSP_SetBitRate
- *fill*         0x1a0019c6        0x2 ff
+                0x1a001948       0x3e lpc_chip_43xx/src/ssp_18xx_43xx.o
+                0x1a001948                Chip_SSP_SetBitRate
+ *fill*         0x1a001986        0x2 ff
  .text.Chip_SSP_Init
-                0x1a0019c8       0x38 lpc_chip_43xx/src/ssp_18xx_43xx.o
-                0x1a0019c8                Chip_SSP_Init
+                0x1a001988       0x38 lpc_chip_43xx/src/ssp_18xx_43xx.o
+                0x1a001988                Chip_SSP_Init
  .text.Chip_GPIO_Init
-                0x1a001a00        0x2 lpc_chip_43xx/src/gpio_18xx_43xx.o
-                0x1a001a00                Chip_GPIO_Init
+                0x1a0019c0        0x2 lpc_chip_43xx/src/gpio_18xx_43xx.o
+                0x1a0019c0                Chip_GPIO_Init
  .text.Chip_GPIO_SetPinDIR
-                0x1a001a02       0x30 lpc_chip_43xx/src/gpio_18xx_43xx.o
-                0x1a001a02                Chip_GPIO_SetPinDIR
- *fill*         0x1a001a32        0x2 ff
+                0x1a0019c2       0x30 lpc_chip_43xx/src/gpio_18xx_43xx.o
+                0x1a0019c2                Chip_GPIO_SetPinDIR
+ *fill*         0x1a0019f2        0x2 ff
  .text.Chip_UART_GetIndex
-                0x1a001a34       0x2c lpc_chip_43xx/src/uart_18xx_43xx.o
+                0x1a0019f4       0x2c lpc_chip_43xx/src/uart_18xx_43xx.o
  .text.Chip_UART_Init
-                0x1a001a60       0x54 lpc_chip_43xx/src/uart_18xx_43xx.o
-                0x1a001a60                Chip_UART_Init
+                0x1a001a20       0x54 lpc_chip_43xx/src/uart_18xx_43xx.o
+                0x1a001a20                Chip_UART_Init
  .text.Chip_UART_Send
-                0x1a001ab4       0x28 lpc_chip_43xx/src/uart_18xx_43xx.o
-                0x1a001ab4                Chip_UART_Send
+                0x1a001a74       0x28 lpc_chip_43xx/src/uart_18xx_43xx.o
+                0x1a001a74                Chip_UART_Send
  .text.Chip_UART_SendBlocking
-                0x1a001adc       0x24 lpc_chip_43xx/src/uart_18xx_43xx.o
-                0x1a001adc                Chip_UART_SendBlocking
+                0x1a001a9c       0x24 lpc_chip_43xx/src/uart_18xx_43xx.o
+                0x1a001a9c                Chip_UART_SendBlocking
  .text.Chip_UART_SetBaud
-                0x1a001b00       0x40 lpc_chip_43xx/src/uart_18xx_43xx.o
-                0x1a001b00                Chip_UART_SetBaud
+                0x1a001ac0       0x40 lpc_chip_43xx/src/uart_18xx_43xx.o
+                0x1a001ac0                Chip_UART_SetBaud
  .text.Chip_UART_SetBaudFDR
-                0x1a001b40       0xdc lpc_chip_43xx/src/uart_18xx_43xx.o
-                0x1a001b40                Chip_UART_SetBaudFDR
+                0x1a001b00       0xdc lpc_chip_43xx/src/uart_18xx_43xx.o
+                0x1a001b00                Chip_UART_SetBaudFDR
  .text.SystemInit
-                0x1a001c1c        0xc lpc_board_ciaa_edu_4337/src/sysinit.o
-                0x1a001c1c                SystemInit
+                0x1a001bdc        0xc lpc_board_ciaa_edu_4337/src/sysinit.o
+                0x1a001bdc                SystemInit
  .text.Board_SetupMuxing
-                0x1a001c28       0x38 lpc_board_ciaa_edu_4337/src/board_sysinit.o
-                0x1a001c28                Board_SetupMuxing
+                0x1a001be8       0x38 lpc_board_ciaa_edu_4337/src/board_sysinit.o
+                0x1a001be8                Board_SetupMuxing
  .text.Board_SetupClocking
-                0x1a001c60       0x6c lpc_board_ciaa_edu_4337/src/board_sysinit.o
-                0x1a001c60                Board_SetupClocking
+                0x1a001c20       0x6c lpc_board_ciaa_edu_4337/src/board_sysinit.o
+                0x1a001c20                Board_SetupClocking
  .text.Board_SystemInit
-                0x1a001ccc        0xc lpc_board_ciaa_edu_4337/src/board_sysinit.o
-                0x1a001ccc                Board_SystemInit
+                0x1a001c8c        0xc lpc_board_ciaa_edu_4337/src/board_sysinit.o
+                0x1a001c8c                Board_SystemInit
  .text.ResetISR
-                0x1a001cd8       0x7c lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
-                0x1a001cd8                ResetISR
+                0x1a001c98       0x7c lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
+                0x1a001c98                ResetISR
  .text.Board_LED_Init
-                0x1a001d54       0x44 lpc_board_ciaa_edu_4337/src/board.o
+                0x1a001d14       0x44 lpc_board_ciaa_edu_4337/src/board.o
  .text.Board_TEC_Init
-                0x1a001d98       0x40 lpc_board_ciaa_edu_4337/src/board.o
+                0x1a001d58       0x40 lpc_board_ciaa_edu_4337/src/board.o
  .text.Board_UART_Init
-                0x1a001dd8       0x14 lpc_board_ciaa_edu_4337/src/board.o
-                0x1a001dd8                Board_UART_Init
+                0x1a001d98       0x14 lpc_board_ciaa_edu_4337/src/board.o
+                0x1a001d98                Board_UART_Init
  .text.Board_Debug_Init
-                0x1a001dec       0x28 lpc_board_ciaa_edu_4337/src/board.o
-                0x1a001dec                Board_Debug_Init
+                0x1a001dac       0x28 lpc_board_ciaa_edu_4337/src/board.o
+                0x1a001dac                Board_Debug_Init
  .text.Board_LED_Set
-                0x1a001e14       0x28 lpc_board_ciaa_edu_4337/src/board.o
-                0x1a001e14                Board_LED_Set
+                0x1a001dd4       0x28 lpc_board_ciaa_edu_4337/src/board.o
+                0x1a001dd4                Board_LED_Set
  .text.Board_LED_Test
-                0x1a001e3c       0x2c lpc_board_ciaa_edu_4337/src/board.o
-                0x1a001e3c                Board_LED_Test
+                0x1a001dfc       0x2c lpc_board_ciaa_edu_4337/src/board.o
+                0x1a001dfc                Board_LED_Test
  .text.Board_LED_Toggle
-                0x1a001e68       0x16 lpc_board_ciaa_edu_4337/src/board.o
-                0x1a001e68                Board_LED_Toggle
- *fill*         0x1a001e7e        0x2 ff
+                0x1a001e28       0x16 lpc_board_ciaa_edu_4337/src/board.o
+                0x1a001e28                Board_LED_Toggle
+ *fill*         0x1a001e3e        0x2 ff
  .text.Board_TEC_GetStatus
-                0x1a001e80       0x2c lpc_board_ciaa_edu_4337/src/board.o
-                0x1a001e80                Board_TEC_GetStatus
+                0x1a001e40       0x2c lpc_board_ciaa_edu_4337/src/board.o
+                0x1a001e40                Board_TEC_GetStatus
  .text.Board_Init
-                0x1a001eac       0x2c lpc_board_ciaa_edu_4337/src/board.o
-                0x1a001eac                Board_Init
- .text          0x1a001ed8       0x30 d:/ciaa/tools/arm-none-eabi-gcc/bin/../lib/gcc/arm-none-eabi/8.2.1/thumb/v7e-m+fp/hard\libgcc.a(_aeabi_uldivmod.o)
-                0x1a001ed8                __aeabi_uldivmod
+                0x1a001e6c       0x2c lpc_board_ciaa_edu_4337/src/board.o
+                0x1a001e6c                Board_Init
+ .text          0x1a001e98       0x30 d:/ciaa/tools/arm-none-eabi-gcc/bin/../lib/gcc/arm-none-eabi/8.2.1/thumb/v7e-m+fp/hard\libgcc.a(_aeabi_uldivmod.o)
+                0x1a001e98                __aeabi_uldivmod
  .text.__udivmoddi4
-                0x1a001f08      0x2d0 d:/ciaa/tools/arm-none-eabi-gcc/bin/../lib/gcc/arm-none-eabi/8.2.1/thumb/v7e-m+fp/hard\libgcc.a(_udivmoddi4.o)
-                0x1a001f08                __udivmoddi4
- .text          0x1a0021d8        0x4 d:/ciaa/tools/arm-none-eabi-gcc/bin/../lib/gcc/arm-none-eabi/8.2.1/thumb/v7e-m+fp/hard\libgcc.a(_dvmd_tls.o)
-                0x1a0021d8                __aeabi_idiv0
-                0x1a0021d8                __aeabi_ldiv0
- .text.memset   0x1a0021dc       0x10 d:/ciaa/tools/arm-none-eabi-gcc/bin/../lib/gcc/arm-none-eabi/8.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-memset.o)
-                0x1a0021dc                memset
+                0x1a001ec8      0x2d0 d:/ciaa/tools/arm-none-eabi-gcc/bin/../lib/gcc/arm-none-eabi/8.2.1/thumb/v7e-m+fp/hard\libgcc.a(_udivmoddi4.o)
+                0x1a001ec8                __udivmoddi4
+ .text          0x1a002198        0x4 d:/ciaa/tools/arm-none-eabi-gcc/bin/../lib/gcc/arm-none-eabi/8.2.1/thumb/v7e-m+fp/hard\libgcc.a(_dvmd_tls.o)
+                0x1a002198                __aeabi_idiv0
+                0x1a002198                __aeabi_ldiv0
+ .text.memset   0x1a00219c       0x10 d:/ciaa/tools/arm-none-eabi-gcc/bin/../lib/gcc/arm-none-eabi/8.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-memset.o)
+                0x1a00219c                memset
  *(.rodata .rodata.* .constdata .constdata.*)
  .rodata.InitClkStates
-                0x1a0021ec       0x48 lpc_chip_43xx/src/sysinit_18xx_43xx.o
- .rodata        0x1a002234        0x4 lpc_chip_43xx/src/clock_18xx_43xx.o
+                0x1a0021ac       0x48 lpc_chip_43xx/src/sysinit_18xx_43xx.o
+ .rodata        0x1a0021f4        0x4 lpc_chip_43xx/src/clock_18xx_43xx.o
  .rodata.Chip_Clock_SetDivider.str1.4
-                0x1a002238        0x8 lpc_chip_43xx/src/clock_18xx_43xx.o
+                0x1a0021f8        0x8 lpc_chip_43xx/src/clock_18xx_43xx.o
                                   0x6 (size before relaxing)
  .rodata.periph_to_base
-                0x1a002240       0x6c lpc_chip_43xx/src/clock_18xx_43xx.o
+                0x1a002200       0x6c lpc_chip_43xx/src/clock_18xx_43xx.o
  .rodata.UART_BClock
-                0x1a0022ac        0x8 lpc_chip_43xx/src/uart_18xx_43xx.o
+                0x1a00226c        0x8 lpc_chip_43xx/src/uart_18xx_43xx.o
  .rodata.UART_PClock
-                0x1a0022b4        0x8 lpc_chip_43xx/src/uart_18xx_43xx.o
+                0x1a002274        0x8 lpc_chip_43xx/src/uart_18xx_43xx.o
  .rodata.InitClkStates
-                0x1a0022bc        0xc lpc_board_ciaa_edu_4337/src/board_sysinit.o
+                0x1a00227c        0xc lpc_board_ciaa_edu_4337/src/board_sysinit.o
  .rodata.pinmuxing
-                0x1a0022c8       0x60 lpc_board_ciaa_edu_4337/src/board_sysinit.o
+                0x1a002288       0x60 lpc_board_ciaa_edu_4337/src/board_sysinit.o
  .rodata.ExtRateIn
-                0x1a002328        0x4 lpc_board_ciaa_edu_4337/src/board.o
-                0x1a002328                ExtRateIn
+                0x1a0022e8        0x4 lpc_board_ciaa_edu_4337/src/board.o
+                0x1a0022e8                ExtRateIn
  .rodata.GpioButtons
-                0x1a00232c        0x8 lpc_board_ciaa_edu_4337/src/board.o
+                0x1a0022ec        0x8 lpc_board_ciaa_edu_4337/src/board.o
  .rodata.OscRateIn
-                0x1a002334        0x4 lpc_board_ciaa_edu_4337/src/board.o
-                0x1a002334                OscRateIn
+                0x1a0022f4        0x4 lpc_board_ciaa_edu_4337/src/board.o
+                0x1a0022f4                OscRateIn
  .rodata.gpioLEDBits
-                0x1a002338        0xc lpc_board_ciaa_edu_4337/src/board.o
-                0x1a002344                . = ALIGN (0x4)
+                0x1a0022f8        0xc lpc_board_ciaa_edu_4337/src/board.o
+                0x1a002304                . = ALIGN (0x4)
 
-.glue_7         0x1a002344        0x0
- .glue_7        0x1a002344        0x0 linker stubs
+.glue_7         0x1a002304        0x0
+ .glue_7        0x1a002304        0x0 linker stubs
 
-.glue_7t        0x1a002344        0x0
- .glue_7t       0x1a002344        0x0 linker stubs
+.glue_7t        0x1a002304        0x0
+ .glue_7t       0x1a002304        0x0 linker stubs
 
-.vfp11_veneer   0x1a002344        0x0
- .vfp11_veneer  0x1a002344        0x0 linker stubs
+.vfp11_veneer   0x1a002304        0x0
+ .vfp11_veneer  0x1a002304        0x0 linker stubs
 
-.v4_bx          0x1a002344        0x0
- .v4_bx         0x1a002344        0x0 linker stubs
+.v4_bx          0x1a002304        0x0
+ .v4_bx         0x1a002304        0x0 linker stubs
 
-.iplt           0x1a002344        0x0
- .iplt          0x1a002344        0x0 app/src/GPIO.o
+.iplt           0x1a002304        0x0
+ .iplt          0x1a002304        0x0 app/src/GPIO.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x1a002344                __exidx_start = .
+                0x1a002304                __exidx_start = .
 
-.ARM.exidx      0x1a002344        0x8
+.ARM.exidx      0x1a002304        0x8
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
  .ARM.exidx.text.__udivmoddi4
-                0x1a002344        0x8 d:/ciaa/tools/arm-none-eabi-gcc/bin/../lib/gcc/arm-none-eabi/8.2.1/thumb/v7e-m+fp/hard\libgcc.a(_udivmoddi4.o)
-                0x1a00234c                __exidx_end = .
-                0x1a00234c                _etext = .
+                0x1a002304        0x8 d:/ciaa/tools/arm-none-eabi-gcc/bin/../lib/gcc/arm-none-eabi/8.2.1/thumb/v7e-m+fp/hard\libgcc.a(_udivmoddi4.o)
+                0x1a00230c                __exidx_end = .
+                0x1a00230c                _etext = .
 
-.rel.dyn        0x1a00234c        0x0
- .rel.iplt      0x1a00234c        0x0 app/src/GPIO.o
+.rel.dyn        0x1a00230c        0x0
+ .rel.iplt      0x1a00230c        0x0 app/src/GPIO.o
 
-.data_RAM2      0x10080000        0x0 load address 0x1a00234c
+.data_RAM2      0x10080000        0x0 load address 0x1a00230c
  FILL mask 0xff
  *(.ramfunc.$RAM2)
  *(.ramfunc.$RamLoc40)
@@ -7479,7 +7479,7 @@ END GROUP
  *(.data.$RamLoc40*)
                 0x10080000                . = ALIGN (0x4)
 
-.data_RAM3      0x20000000        0x0 load address 0x1a00234c
+.data_RAM3      0x20000000        0x0 load address 0x1a00230c
  FILL mask 0xff
  *(.ramfunc.$RAM3)
  *(.ramfunc.$RamAHB32)
@@ -7487,7 +7487,7 @@ END GROUP
  *(.data.$RamAHB32*)
                 0x20000000                . = ALIGN (0x4)
 
-.data_RAM4      0x20008000        0x0 load address 0x1a00234c
+.data_RAM4      0x20008000        0x0 load address 0x1a00230c
  FILL mask 0xff
  *(.ramfunc.$RAM4)
  *(.ramfunc.$RamAHB16)
@@ -7495,7 +7495,7 @@ END GROUP
  *(.data.$RamAHB16*)
                 0x20008000                . = ALIGN (0x4)
 
-.data_RAM5      0x2000c000        0x0 load address 0x1a00234c
+.data_RAM5      0x2000c000        0x0 load address 0x1a00230c
  FILL mask 0xff
  *(.ramfunc.$RAM5)
  *(.ramfunc.$RamAHB_ETB16)
@@ -7509,7 +7509,7 @@ END GROUP
                 0x10000000                . = ALIGN (0x4)
                 0x10000000                _end_uninit_RESERVED = .
 
-.data           0x10000000        0x4 load address 0x1a00234c
+.data           0x10000000        0x4 load address 0x1a00230c
  FILL mask 0xff
                 0x10000000                _data = .
  *(vtable)
@@ -7520,7 +7520,7 @@ END GROUP
                 0x10000004                . = ALIGN (0x4)
                 0x10000004                _edata = .
 
-.igot.plt       0x10000004        0x0 load address 0x1a002350
+.igot.plt       0x10000004        0x0 load address 0x1a002310
  .igot.plt      0x10000004        0x0 app/src/GPIO.o
 
 .bss_RAM2       0x10080000        0x0
@@ -7613,62 +7613,62 @@ END GROUP
                 0x10008000                PROVIDE (_vStackTop = (__top_RamLoc32 - 0x0))
 OUTPUT(adquisidorBiopotenciales.elf elf32-littlearm)
 
-.debug_info     0x00000000    0x14273
- .debug_info    0x00000000     0x2ec2 app/src/GPIO.o
- .debug_info    0x00002ec2     0x1c04 app/src/ADS131E08.o
- .debug_info    0x00004ac6      0x8f2 app/src/UART.o
- .debug_info    0x000053b8      0x780 app/src/SPI.o
- .debug_info    0x00005b38     0x1a02 app/src/funcionamiento.o
- .debug_info    0x0000753a     0x161a app/src/adquisidorBiopotenciales.o
- .debug_info    0x00008b54      0xb94 lpc_chip_43xx/src/sysinit_18xx_43xx.o
- .debug_info    0x000096e8      0x156 lpc_chip_43xx/src/fpu_init.o
- .debug_info    0x0000983e      0xc97 lpc_chip_43xx/src/chip_18xx_43xx.o
- .debug_info    0x0000a4d5     0x1b68 lpc_chip_43xx/src/clock_18xx_43xx.o
- .debug_info    0x0000c03d     0x1a33 lpc_chip_43xx/src/ssp_18xx_43xx.o
- .debug_info    0x0000da70      0x568 lpc_chip_43xx/src/gpio_18xx_43xx.o
- .debug_info    0x0000dfd8     0x1981 lpc_chip_43xx/src/uart_18xx_43xx.o
- .debug_info    0x0000f959      0x9e3 lpc_board_ciaa_edu_4337/src/sysinit.o
- .debug_info    0x0001033c       0x40 lpc_board_ciaa_edu_4337/src/crp.o
- .debug_info    0x0001037c     0x15bc lpc_board_ciaa_edu_4337/src/board_sysinit.o
- .debug_info    0x00011938      0x33f lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
- .debug_info    0x00011c77     0x25fc lpc_board_ciaa_edu_4337/src/board.o
+.debug_info     0x00000000    0x1428f
+ .debug_info    0x00000000     0x2ef5 app/src/GPIO.o
+ .debug_info    0x00002ef5     0x1c04 app/src/ADS131E08.o
+ .debug_info    0x00004af9      0x8f2 app/src/UART.o
+ .debug_info    0x000053eb      0x780 app/src/SPI.o
+ .debug_info    0x00005b6b     0x19eb app/src/funcionamiento.o
+ .debug_info    0x00007556     0x161a app/src/adquisidorBiopotenciales.o
+ .debug_info    0x00008b70      0xb94 lpc_chip_43xx/src/sysinit_18xx_43xx.o
+ .debug_info    0x00009704      0x156 lpc_chip_43xx/src/fpu_init.o
+ .debug_info    0x0000985a      0xc97 lpc_chip_43xx/src/chip_18xx_43xx.o
+ .debug_info    0x0000a4f1     0x1b68 lpc_chip_43xx/src/clock_18xx_43xx.o
+ .debug_info    0x0000c059     0x1a33 lpc_chip_43xx/src/ssp_18xx_43xx.o
+ .debug_info    0x0000da8c      0x568 lpc_chip_43xx/src/gpio_18xx_43xx.o
+ .debug_info    0x0000dff4     0x1981 lpc_chip_43xx/src/uart_18xx_43xx.o
+ .debug_info    0x0000f975      0x9e3 lpc_board_ciaa_edu_4337/src/sysinit.o
+ .debug_info    0x00010358       0x40 lpc_board_ciaa_edu_4337/src/crp.o
+ .debug_info    0x00010398     0x15bc lpc_board_ciaa_edu_4337/src/board_sysinit.o
+ .debug_info    0x00011954      0x33f lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
+ .debug_info    0x00011c93     0x25fc lpc_board_ciaa_edu_4337/src/board.o
 
-.debug_abbrev   0x00000000     0x3248
- .debug_abbrev  0x00000000      0x439 app/src/GPIO.o
- .debug_abbrev  0x00000439      0x3e3 app/src/ADS131E08.o
- .debug_abbrev  0x0000081c      0x2a8 app/src/UART.o
- .debug_abbrev  0x00000ac4      0x26f app/src/SPI.o
- .debug_abbrev  0x00000d33      0x43f app/src/funcionamiento.o
- .debug_abbrev  0x00001172      0x366 app/src/adquisidorBiopotenciales.o
- .debug_abbrev  0x000014d8      0x250 lpc_chip_43xx/src/sysinit_18xx_43xx.o
- .debug_abbrev  0x00001728       0xb1 lpc_chip_43xx/src/fpu_init.o
- .debug_abbrev  0x000017d9      0x1ee lpc_chip_43xx/src/chip_18xx_43xx.o
- .debug_abbrev  0x000019c7      0x3ef lpc_chip_43xx/src/clock_18xx_43xx.o
- .debug_abbrev  0x00001db6      0x38a lpc_chip_43xx/src/ssp_18xx_43xx.o
- .debug_abbrev  0x00002140      0x1af lpc_chip_43xx/src/gpio_18xx_43xx.o
- .debug_abbrev  0x000022ef      0x42c lpc_chip_43xx/src/uart_18xx_43xx.o
- .debug_abbrev  0x0000271b      0x20a lpc_board_ciaa_edu_4337/src/sysinit.o
- .debug_abbrev  0x00002925       0x38 lpc_board_ciaa_edu_4337/src/crp.o
- .debug_abbrev  0x0000295d      0x356 lpc_board_ciaa_edu_4337/src/board_sysinit.o
- .debug_abbrev  0x00002cb3      0x130 lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
- .debug_abbrev  0x00002de3      0x465 lpc_board_ciaa_edu_4337/src/board.o
+.debug_abbrev   0x00000000     0x326d
+ .debug_abbrev  0x00000000      0x45e app/src/GPIO.o
+ .debug_abbrev  0x0000045e      0x3e3 app/src/ADS131E08.o
+ .debug_abbrev  0x00000841      0x2a8 app/src/UART.o
+ .debug_abbrev  0x00000ae9      0x26f app/src/SPI.o
+ .debug_abbrev  0x00000d58      0x43f app/src/funcionamiento.o
+ .debug_abbrev  0x00001197      0x366 app/src/adquisidorBiopotenciales.o
+ .debug_abbrev  0x000014fd      0x250 lpc_chip_43xx/src/sysinit_18xx_43xx.o
+ .debug_abbrev  0x0000174d       0xb1 lpc_chip_43xx/src/fpu_init.o
+ .debug_abbrev  0x000017fe      0x1ee lpc_chip_43xx/src/chip_18xx_43xx.o
+ .debug_abbrev  0x000019ec      0x3ef lpc_chip_43xx/src/clock_18xx_43xx.o
+ .debug_abbrev  0x00001ddb      0x38a lpc_chip_43xx/src/ssp_18xx_43xx.o
+ .debug_abbrev  0x00002165      0x1af lpc_chip_43xx/src/gpio_18xx_43xx.o
+ .debug_abbrev  0x00002314      0x42c lpc_chip_43xx/src/uart_18xx_43xx.o
+ .debug_abbrev  0x00002740      0x20a lpc_board_ciaa_edu_4337/src/sysinit.o
+ .debug_abbrev  0x0000294a       0x38 lpc_board_ciaa_edu_4337/src/crp.o
+ .debug_abbrev  0x00002982      0x356 lpc_board_ciaa_edu_4337/src/board_sysinit.o
+ .debug_abbrev  0x00002cd8      0x130 lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
+ .debug_abbrev  0x00002e08      0x465 lpc_board_ciaa_edu_4337/src/board.o
 
-.debug_loc      0x00000000     0x5e78
- .debug_loc     0x00000000      0xf55 app/src/GPIO.o
- .debug_loc     0x00000f55      0x4bd app/src/ADS131E08.o
- .debug_loc     0x00001412      0x2b4 app/src/UART.o
- .debug_loc     0x000016c6      0x178 app/src/SPI.o
- .debug_loc     0x0000183e      0x15f app/src/funcionamiento.o
- .debug_loc     0x0000199d       0x63 app/src/adquisidorBiopotenciales.o
- .debug_loc     0x00001a00      0x15a lpc_chip_43xx/src/sysinit_18xx_43xx.o
- .debug_loc     0x00001b5a       0x31 lpc_chip_43xx/src/fpu_init.o
- .debug_loc     0x00001b8b     0x1505 lpc_chip_43xx/src/clock_18xx_43xx.o
- .debug_loc     0x00003090      0xfd3 lpc_chip_43xx/src/ssp_18xx_43xx.o
- .debug_loc     0x00004063      0x39e lpc_chip_43xx/src/gpio_18xx_43xx.o
- .debug_loc     0x00004401      0xf38 lpc_chip_43xx/src/uart_18xx_43xx.o
- .debug_loc     0x00005339       0xd9 lpc_board_ciaa_edu_4337/src/board_sysinit.o
- .debug_loc     0x00005412      0x282 lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
- .debug_loc     0x00005694      0x7e4 lpc_board_ciaa_edu_4337/src/board.o
+.debug_loc      0x00000000     0x5e44
+ .debug_loc     0x00000000      0xf21 app/src/GPIO.o
+ .debug_loc     0x00000f21      0x4bd app/src/ADS131E08.o
+ .debug_loc     0x000013de      0x2b4 app/src/UART.o
+ .debug_loc     0x00001692      0x178 app/src/SPI.o
+ .debug_loc     0x0000180a      0x15f app/src/funcionamiento.o
+ .debug_loc     0x00001969       0x63 app/src/adquisidorBiopotenciales.o
+ .debug_loc     0x000019cc      0x15a lpc_chip_43xx/src/sysinit_18xx_43xx.o
+ .debug_loc     0x00001b26       0x31 lpc_chip_43xx/src/fpu_init.o
+ .debug_loc     0x00001b57     0x1505 lpc_chip_43xx/src/clock_18xx_43xx.o
+ .debug_loc     0x0000305c      0xfd3 lpc_chip_43xx/src/ssp_18xx_43xx.o
+ .debug_loc     0x0000402f      0x39e lpc_chip_43xx/src/gpio_18xx_43xx.o
+ .debug_loc     0x000043cd      0xf38 lpc_chip_43xx/src/uart_18xx_43xx.o
+ .debug_loc     0x00005305       0xd9 lpc_board_ciaa_edu_4337/src/board_sysinit.o
+ .debug_loc     0x000053de      0x282 lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
+ .debug_loc     0x00005660      0x7e4 lpc_board_ciaa_edu_4337/src/board.o
 
 .debug_aranges  0x00000000      0x750
  .debug_aranges
@@ -7838,62 +7838,62 @@ OUTPUT(adquisidorBiopotenciales.elf elf32-littlearm)
  .debug_macro   0x0000959c      0x4b6 lpc_board_ciaa_edu_4337/src/board.o
  .debug_macro   0x00009a52       0x16 lpc_board_ciaa_edu_4337/src/board.o
 
-.debug_line     0x00000000     0xac93
- .debug_line    0x00000000      0xea3 app/src/GPIO.o
- .debug_line    0x00000ea3      0xd2e app/src/ADS131E08.o
- .debug_line    0x00001bd1      0x78a app/src/UART.o
- .debug_line    0x0000235b      0x7b1 app/src/SPI.o
- .debug_line    0x00002b0c      0xbbc app/src/funcionamiento.o
- .debug_line    0x000036c8      0x89c app/src/adquisidorBiopotenciales.o
- .debug_line    0x00003f64      0x893 lpc_chip_43xx/src/sysinit_18xx_43xx.o
- .debug_line    0x000047f7      0x2ae lpc_chip_43xx/src/fpu_init.o
- .debug_line    0x00004aa5      0x6f1 lpc_chip_43xx/src/chip_18xx_43xx.o
- .debug_line    0x00005196     0x1389 lpc_chip_43xx/src/clock_18xx_43xx.o
- .debug_line    0x0000651f     0x11a1 lpc_chip_43xx/src/ssp_18xx_43xx.o
- .debug_line    0x000076c0      0x78b lpc_chip_43xx/src/gpio_18xx_43xx.o
- .debug_line    0x00007e4b      0xe23 lpc_chip_43xx/src/uart_18xx_43xx.o
- .debug_line    0x00008c6e      0x7c1 lpc_board_ciaa_edu_4337/src/sysinit.o
- .debug_line    0x0000942f       0x42 lpc_board_ciaa_edu_4337/src/crp.o
- .debug_line    0x00009471      0x8a3 lpc_board_ciaa_edu_4337/src/board_sysinit.o
- .debug_line    0x00009d14      0x24b lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
- .debug_line    0x00009f5f      0xd34 lpc_board_ciaa_edu_4337/src/board.o
+.debug_line     0x00000000     0xac18
+ .debug_line    0x00000000      0xe28 app/src/GPIO.o
+ .debug_line    0x00000e28      0xd2e app/src/ADS131E08.o
+ .debug_line    0x00001b56      0x78a app/src/UART.o
+ .debug_line    0x000022e0      0x7b1 app/src/SPI.o
+ .debug_line    0x00002a91      0xbbc app/src/funcionamiento.o
+ .debug_line    0x0000364d      0x89c app/src/adquisidorBiopotenciales.o
+ .debug_line    0x00003ee9      0x893 lpc_chip_43xx/src/sysinit_18xx_43xx.o
+ .debug_line    0x0000477c      0x2ae lpc_chip_43xx/src/fpu_init.o
+ .debug_line    0x00004a2a      0x6f1 lpc_chip_43xx/src/chip_18xx_43xx.o
+ .debug_line    0x0000511b     0x1389 lpc_chip_43xx/src/clock_18xx_43xx.o
+ .debug_line    0x000064a4     0x11a1 lpc_chip_43xx/src/ssp_18xx_43xx.o
+ .debug_line    0x00007645      0x78b lpc_chip_43xx/src/gpio_18xx_43xx.o
+ .debug_line    0x00007dd0      0xe23 lpc_chip_43xx/src/uart_18xx_43xx.o
+ .debug_line    0x00008bf3      0x7c1 lpc_board_ciaa_edu_4337/src/sysinit.o
+ .debug_line    0x000093b4       0x42 lpc_board_ciaa_edu_4337/src/crp.o
+ .debug_line    0x000093f6      0x8a3 lpc_board_ciaa_edu_4337/src/board_sysinit.o
+ .debug_line    0x00009c99      0x24b lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
+ .debug_line    0x00009ee4      0xd34 lpc_board_ciaa_edu_4337/src/board.o
 
-.debug_str      0x00000000    0x1e99a
- .debug_str     0x00000000    0x1c2f0 app/src/GPIO.o
-                              0x1c5d1 (size before relaxing)
- .debug_str     0x0001c2f0      0x28c app/src/ADS131E08.o
+.debug_str      0x00000000    0x1e99d
+ .debug_str     0x00000000    0x1c2f3 app/src/GPIO.o
+                              0x1c5e3 (size before relaxing)
+ .debug_str     0x0001c2f3      0x28c app/src/ADS131E08.o
                               0x1c576 (size before relaxing)
- .debug_str     0x0001c57c      0x13b app/src/UART.o
+ .debug_str     0x0001c57f      0x13b app/src/UART.o
                               0x1536c (size before relaxing)
- .debug_str     0x0001c6b7      0x2ec app/src/SPI.o
+ .debug_str     0x0001c6ba      0x2ec app/src/SPI.o
                               0x154e2 (size before relaxing)
- .debug_str     0x0001c9a3      0x463 app/src/funcionamiento.o
+ .debug_str     0x0001c9a6      0x463 app/src/funcionamiento.o
                               0x1c8ea (size before relaxing)
- .debug_str     0x0001ce06       0x85 app/src/adquisidorBiopotenciales.o
+ .debug_str     0x0001ce09       0x85 app/src/adquisidorBiopotenciales.o
                               0x1c71d (size before relaxing)
- .debug_str     0x0001ce8b      0x345 lpc_chip_43xx/src/sysinit_18xx_43xx.o
+ .debug_str     0x0001ce8e      0x345 lpc_chip_43xx/src/sysinit_18xx_43xx.o
                               0x15df7 (size before relaxing)
- .debug_str     0x0001d1d0       0xc0 lpc_chip_43xx/src/fpu_init.o
+ .debug_str     0x0001d1d3       0xc0 lpc_chip_43xx/src/fpu_init.o
                                0x9956 (size before relaxing)
- .debug_str     0x0001d290      0x212 lpc_chip_43xx/src/chip_18xx_43xx.o
+ .debug_str     0x0001d293      0x212 lpc_chip_43xx/src/chip_18xx_43xx.o
                               0x15e99 (size before relaxing)
- .debug_str     0x0001d4a2      0x422 lpc_chip_43xx/src/clock_18xx_43xx.o
+ .debug_str     0x0001d4a5      0x422 lpc_chip_43xx/src/clock_18xx_43xx.o
                               0x1636c (size before relaxing)
- .debug_str     0x0001d8c4      0x415 lpc_chip_43xx/src/ssp_18xx_43xx.o
+ .debug_str     0x0001d8c7      0x415 lpc_chip_43xx/src/ssp_18xx_43xx.o
                               0x15b3a (size before relaxing)
- .debug_str     0x0001dcd9       0xe7 lpc_chip_43xx/src/gpio_18xx_43xx.o
+ .debug_str     0x0001dcdc       0xe7 lpc_chip_43xx/src/gpio_18xx_43xx.o
                               0x151e7 (size before relaxing)
- .debug_str     0x0001ddc0      0x35d lpc_chip_43xx/src/uart_18xx_43xx.o
+ .debug_str     0x0001ddc3      0x35d lpc_chip_43xx/src/uart_18xx_43xx.o
                               0x15fa9 (size before relaxing)
- .debug_str     0x0001e11d       0x41 lpc_board_ciaa_edu_4337/src/sysinit.o
+ .debug_str     0x0001e120       0x41 lpc_board_ciaa_edu_4337/src/sysinit.o
                               0x1938d (size before relaxing)
- .debug_str     0x0001e15e       0x41 lpc_board_ciaa_edu_4337/src/crp.o
+ .debug_str     0x0001e161       0x41 lpc_board_ciaa_edu_4337/src/crp.o
                                0x2df6 (size before relaxing)
- .debug_str     0x0001e19f       0xc9 lpc_board_ciaa_edu_4337/src/board_sysinit.o
+ .debug_str     0x0001e1a2       0xc9 lpc_board_ciaa_edu_4337/src/board_sysinit.o
                               0x1a166 (size before relaxing)
- .debug_str     0x0001e268      0x1f7 lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
+ .debug_str     0x0001e26b      0x1f7 lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
                                0x2fd7 (size before relaxing)
- .debug_str     0x0001e45f      0x53b lpc_board_ciaa_edu_4337/src/board.o
+ .debug_str     0x0001e462      0x53b lpc_board_ciaa_edu_4337/src/board.o
                               0x1a65b (size before relaxing)
 
 .comment        0x00000000       0x68
@@ -8545,6 +8545,7 @@ UART_ReadByte                                     app/src/UART.o
 UART_Receive                                      app/src/UART.o
 UART_Send                                         app/src/UART.o
                                                   app/src/funcionamiento.o
+                                                  app/src/GPIO.o
 UART_available                                    app/src/UART.o
 USB0_IRQHandler                                   lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o
 USB1_IRQHandler                                   lpc_board_ciaa_edu_4337/src/cr_startup_lpc43xx.o

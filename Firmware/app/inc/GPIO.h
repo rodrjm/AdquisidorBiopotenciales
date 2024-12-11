@@ -122,5 +122,7 @@ void GPIO_selectMode(uint8_t currentMode);
 
 void GPIO_start(uint8_t currentChannel);
 
-void GPIO_getSignal(uint32_t channelData,uint32_t *min, uint32_t *max);
+// void GPIO_getSignal(uint32_t channelData,uint32_t *min, uint32_t *max);
+
+void GPIO_getSignal(uint32_t channelData);
 #endif /* GPIO_H_ */
