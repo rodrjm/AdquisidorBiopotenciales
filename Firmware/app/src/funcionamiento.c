@@ -165,11 +165,11 @@ void Funcionamiento_Menu()
       */
       UART_Send(&channelData[currentChannel-5],4);
       //delayMs(1000);
-      if (i == 50) {
+      //if (i == 50) {
          // GPIO_getSignal(channelData[currentChannel-5],&min,&max);
          GPIO_getSignal(channelData[currentChannel-5]);
-         i = 0;
-      } else i++;
+      //   i = 0;
+      //} else i++;
 		if (getPulsador(BOARD_TEC_1)) {
          GPIO_stopped(currentChannel);
 			is_running = 0;

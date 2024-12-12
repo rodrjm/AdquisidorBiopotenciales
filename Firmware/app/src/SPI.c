@@ -47,7 +47,7 @@ void SPI_Setup()
 
 	Chip_SSP_SetMaster(LPC_SSP, 1); // Configura el modulo SPI como Master
 
-	Chip_SSP_SetBitRate(LPC_SSP, 250000); // Configura el bit rate
+	Chip_SSP_SetBitRate(LPC_SSP, 12000000); // Configura el bit rate
 }
 
 

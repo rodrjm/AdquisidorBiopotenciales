@@ -334,8 +334,6 @@ void ADS131E08_getChannelData(uint8_t *sampleCnt, uint32_t *data)
 }
 
 void ADS131E08_configureTestSignal(uint8_t currentChannel){
-   ADS131E08_sendCommand(_SDATAC);	// Detener al modo de lectura continua de datos
-   ADS131E08_sendCommand(_STOP);	// Detener la adquisicion de datos
    delayMs(10);
    
    for(uint8_t i=0;i<8;i++){
@@ -343,16 +341,12 @@ void ADS131E08_configureTestSignal(uint8_t currentChannel){
    }
    ADS131E08_WREG(currentChannel, 0x05);	// Establecer el canal 1 para el modo de TEST
    
-   //ADS131E08_WREG(_CONFIG1_ADDRESS, 0x96);	// Establece la configuracion en CONFIG1 para que las muestras sean de 1kSPS 
    ADS131E08_WREG(_CONFIG2_ADDRESS, 0xF0);	// Establece la configuracion en CONFIG2 para que se generen las senales internas de test
-	//ADS131E08_WREG(_CONFIG3_ADDRESS, 0xC0);	// Establece la configuracion en CONFIG3 para habilitar el bufer de referencia interno
    
    delayMs(1);
 }
 
 void ADS131E08_configureExternalSignal(uint8_t currentChannel) {
-   ADS131E08_sendCommand(_SDATAC);	// Detener al modo de lectura continua de datos
-   ADS131E08_sendCommand(_STOP);	// Detener la adquisicion de datos
    delayMs(10);
    
    for(uint8_t i=0;i<8;i++){
@@ -360,9 +354,7 @@ void ADS131E08_configureExternalSignal(uint8_t currentChannel) {
    }
    ADS131E08_WREG(currentChannel, 0x00);	// Establecer el canal 1 para el modo de entrada normal
    
-   //ADS131E08_WREG(_CONFIG1_ADDRESS, 0x96);	// Establece la configuracion en CONFIG1 para que las muestras sean de 1kSPS 
    ADS131E08_WREG(_CONFIG2_ADDRESS, 0xE0);	// Establece la configuracion en CONFIG2 para que se generen las senales externas
-	//ADS131E08_WREG(_CONFIG3_ADDRESS, 0xC0);	// Establece la configuracion en CONFIG3 para habilitar el bufer de referencia interno
    
    delayMs(1);
 }
@@ -376,14 +368,22 @@ void ADS131E08_selectMode(uint8_t currentMode, uint8_t currentChannel) {
 }
 
 void ADS131E08_selectChannel(uint8_t currentChannel) {
+   delayMs(10);
+   
    for(uint8_t i=0;i<8;i++){
       ADS131E08_WREG(_CH1SET_ADDRESS+i, _CHSET_PD_MASK); // Apago todos los canales
    }
    ADS131E08_WREG(currentChannel, 0x05); // Establecer el canal de la direccion currentChannel para el modo de TEST
+   
+   delayMs(1);
 }
 
 void ADS131E08_selectkSPS(uint8_t current_kSPS) {
+   delayMs(10);
+   
    uint8_t byte = 0x90;
    byte = byte + current_kSPS;
    ADS131E08_WREG(_CONFIG1_ADDRESS, byte);
+   
+   delayMs(1);
 }

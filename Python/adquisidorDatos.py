@@ -66,7 +66,7 @@ def update():
             data = ser.read(3)
         
             data_buffer.append(data)
-            if len(data_buffer) >= 50:
+            if len(data_buffer) >= 48:
                 print("Valor data: ", data)  # Agregar un mensaje de depuración
                 # Convertir los bytes a un entero de 32 bits con signo
                 #valor_ecg = int.from_bytes(data, byteorder='little', signed=True)
