@@ -37,7 +37,7 @@ def procesar_datos(data):
         print("MSB:", bin(msb))
 
         # Convert the bytes to an integer
-        valor_ecg = int.from_bytes(data, byteorder='little', signed=True)
+        valor_ecg = int.from_bytes(data, byteorder='little')
         print("Antes de la máscara:", bin(valor_ecg))
 
         # Aplicar la máscara antes de modificar el bit más significativo

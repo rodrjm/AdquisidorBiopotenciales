@@ -506,14 +506,12 @@ void GPIO_getSignal(uint32_t channelData) {
    uint8_t negativo = 0;
    int32_t data = channelData;
    uint8_t msb = (data >> 23) & 1;
-   UART_Send(&data,4);
    if (msb == 1) {
       negativo = 1;
    }   
    data &= 0x007FFFFF;
    if (negativo) {
       data = -data;
-      UART_Send(&data,4);
    }
    
    if (data > 6710484) {

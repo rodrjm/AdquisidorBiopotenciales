@@ -22,7 +22,7 @@
 #define IRQ_SELECTION 	UART0_IRQn
 #define HANDLER_NAME 	UART0_IRQHandler
 
-//#define BAUD_RATE	256000
+//#define BAUD_RATE	115200
 #define BAUD_RATE	3150000
 /* Tamanos de los buffers para enviar y recibir datos */
 #define UART_SRB_SIZE 128	/* Enviar */

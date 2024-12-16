@@ -296,6 +296,7 @@ void ADS131E08_getChannelData(uint8_t *sampleCnt, uint32_t *data)
 	{
 		inByte = SPI_transfer(0x00)   ; // Leer el estado de los registros
 		boardStat = (boardStat << 8) | inByte;
+      inByte = 0;
 	}
 
 	for(i=0; i<8; i++) // Leer 16 bits de datos por cada canal en 3 byte chunks
@@ -312,10 +313,11 @@ void ADS131E08_getChannelData(uint8_t *sampleCnt, uint32_t *data)
 		{
 			inByte = SPI_transfer(0x00);
 			data[i] = (data[i]<<8) | inByte;
+         inByte = 0;
 		}
 	}
-   for(i=0;i<8;i++){
-      if (data[i] & 0x800000) { // Pasar de 24 bits a 32 bits
+   for(i=0;i<8;i++){ // Pasar de 24 bits a 32 bits
+      if ((data[i] >> 23) & 1) { 
          data[i] = (~(data[i]) + 1);
          data[i] &= 0xAAFFFFFF;
          data[i] |= 0x00800000;         

@@ -167,7 +167,7 @@ void Funcionamiento_Menu()
       //delayMs(1000);
       //if (i == 50) {
          // GPIO_getSignal(channelData[currentChannel-5],&min,&max);
-         GPIO_getSignal(channelData[currentChannel-5]);
+      GPIO_getSignal(channelData[currentChannel-5]);
       //   i = 0;
       //} else i++;
 		if (getPulsador(BOARD_TEC_1)) {
