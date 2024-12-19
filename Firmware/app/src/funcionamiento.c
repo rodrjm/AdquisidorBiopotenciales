@@ -5,6 +5,15 @@
 #include "board_api.h"
 #include "chip.h"
 #include <stdlib.h>
+#include "math.h"
+
+#define SAMPLE_RATE 1000  // 1 kSPS
+#define AMPLITUDE_MV 3    // Amplitud máxima en mV
+#define VREF_MV 2400      // Voltaje de referencia en mV
+#define RESOLUTION 24     // Resolución del ADC en bits
+
+#define SAMPLES_PER_CYCLE 100   // Número de muestras por ciclo de la triangular
+
 
 
 uint32_t max=0x000000; // Variable utilizada para llevar el maximo valor obtenido 
@@ -66,6 +75,7 @@ void Funcionamiento_Menu()
 		{
          case 0: // Estado: STOPPED
          {
+            //generate_triangle_wave(channelData);
             if (getPulsador(BOARD_TEC_1)) {
                   GPIO_start(currentChannel);
                   is_running = 1;
@@ -210,3 +220,70 @@ void delayUs(uint32_t tk) {
 	while(tick_ct < end)
 		__WFI();
 }
+
+// Convierte un voltaje en mV a un valor en formato de 24 bits con complemento a 2
+uint32_t mv_to_digital(int32_t mv) {
+    int32_t max_value = (1 << (RESOLUTION - 1)) - 1; // Máximo valor positivo (2^23 - 1)
+    int32_t min_value = -(1 << (RESOLUTION - 1));   // Mínimo valor negativo (-2^23)
+
+    // Escala el voltaje a un valor digital
+    int32_t digital_value = (mv * max_value) / VREF_MV;
+
+    // Asegura que el valor está dentro del rango permitido
+    if (digital_value > max_value) {
+        digital_value = max_value;
+    } else if (digital_value < min_value) {
+        digital_value = min_value;
+    }
+
+    // Convierte el valor a uint32_t manteniendo el formato de complemento a 2 en los 24 bits menos significativos
+    return (uint32_t)(digital_value & 0xFFFFFF);
+}
+
+// Genera una señal cuadrada
+void generate_signal(uint32_t *channelData) {
+   bool signal=true;
+   for (int i=0;i<1000;i++) {
+      // Generar la señal
+      int32_t volt = signal ? AMPLITUDE_MV : -AMPLITUDE_MV; // Selecciona alto o bajo en mV
+      channelData[0] = mv_to_digital(volt);
+      signal=!signal;
+      if ((channelData[0]>> 23) & 1) { 
+         channelData[0] = (~(channelData[0]) + 1);
+         channelData[0] &= 0xAAFFFFFF;
+         channelData[0] |= 0x00800000;         
+      } else {
+         channelData[0] |= 0xAA000000;
+      }
+      UART_Send(&channelData[currentChannel-5],4);
+   }
+}
+void generate_triangle_wave(uint32_t *channelData) {
+    // Recorre las muestras en un patrón cíclico
+    for (int i = 0; i < 1000; i++) {
+        // Índice dentro del ciclo (asegurando uniformidad)
+        int sample_in_cycle = i % SAMPLES_PER_CYCLE;
+        // Calcula el valor de la señal triangular
+        int32_t volt;
+        if (sample_in_cycle < SAMPLES_PER_CYCLE / 2) {
+            // Fase ascendente: de -AMPLITUDE_MV a +AMPLITUDE_MV
+            volt = -AMPLITUDE_MV + (2 * AMPLITUDE_MV * sample_in_cycle) / (SAMPLES_PER_CYCLE / 2);
+        } else {
+            // Fase descendente: de +AMPLITUDE_MV a -AMPLITUDE_MV
+            volt = AMPLITUDE_MV - (2 * AMPLITUDE_MV * (sample_in_cycle - SAMPLES_PER_CYCLE / 2)) / (SAMPLES_PER_CYCLE / 2);
+        }
+        // Convierte el voltaje a digital
+        channelData[0] = mv_to_digital(volt);
+        // Procesa los datos según tu formato
+        if ((channelData[0] >> 23) & 1) {
+            channelData[0] = (~(channelData[0]) + 1);
+            channelData[0] &= 0xAAFFFFFF;
+            channelData[0] |= 0x00800000;
+        } else {
+            channelData[0] |= 0xAA000000;
+        }
+
+        // Envía los datos por UART
+        UART_Send(&channelData[0], 4);
+    }
+ }

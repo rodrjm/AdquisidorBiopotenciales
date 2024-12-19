@@ -6,7 +6,7 @@ import pyqtgraph as pg
 from PyQt6.QtCore import QTimer
 
 # Configuración del puerto serial
-ser = serial.Serial('COM4', 3150000)
+ser = serial.Serial('COM7', 3150000)
 ser.timeout = 0.001
 ser.rtscts = True
 
@@ -64,13 +64,14 @@ def update():
         if data == b'\xaa':
             # Leer 3 bytes de datos
             data = ser.read(3)
-        
-            data_buffer.append(data)
+            valor_ecg = procesar_datos(data)
+            data_buffer.append(valor_ecg)
+            #data_buffer.append(data)
             if len(data_buffer) >= 48:
                 print("Valor data: ", data)  # Agregar un mensaje de depuración
                 # Convertir los bytes a un entero de 32 bits con signo
                 #valor_ecg = int.from_bytes(data, byteorder='little', signed=True)
-                valor_ecg = procesar_datos(data)
+                valor_ecg = np.mean(data_buffer)
                 print("Valor ECG (antes de escalar): ", valor_ecg)  # Agregar un mensaje de depuración
                 
                 print("LSB: ", LSB)  # Agregar un mensaje de depuración
