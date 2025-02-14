@@ -53,7 +53,7 @@ void SysTick_Handler(void);
 void delayMs(uint32_t tk);
 
 void delayUs(uint32_t tk);
-void generate_signal(uint32_t *channelData);
-void generate_triangle_wave(uint32_t *channelData);
+void generate_signal(uint32_t channelData, bool signal);
+void generate_triangle_wave(uint32_t channelData);
 
 #endif /* FUNCIONAMIENTO_H_ */

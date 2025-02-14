@@ -11,8 +11,10 @@
 #define AMPLITUDE_MV 3    // Amplitud máxima en mV
 #define VREF_MV 2400      // Voltaje de referencia en mV
 #define RESOLUTION 24     // Resolución del ADC en bits
+#define FREQUENCY 1000 // Frecuencia de la señal en Hz
+#define CLOCK_CYCLES_PER_STATE 1000 // Calculado previamente
 
-#define SAMPLES_PER_CYCLE 100   // Número de muestras por ciclo de la triangular
+#define SAMPLES_PER_CYCLE 1000   // Número de muestras por ciclo de la triangular
 
 
 
@@ -44,6 +46,8 @@ uint8_t currentChannel;
 uint8_t current_kSPS;
 
 uint8_t i = 0;
+
+bool signal=true;
 
 /**
  * @brief Inicializar el ADS131E09 y enviar mensaje de bienvenida
@@ -174,6 +178,8 @@ void Funcionamiento_Menu()
       }
       */
       UART_Send(&channelData[currentChannel-5],4);
+      //generate_triangle_wave(channelData[currentChannel-5]);
+      //generate_signal(channelData[currentChannel-5], signal);
       //delayMs(1000);
       //if (i == 50) {
          // GPIO_getSignal(channelData[currentChannel-5],&min,&max);
@@ -241,26 +247,29 @@ uint32_t mv_to_digital(int32_t mv) {
 }
 
 // Genera una señal cuadrada
-void generate_signal(uint32_t *channelData) {
-   bool signal=true;
+void generate_signal(uint32_t channelData, bool signal) {
    for (int i=0;i<1000;i++) {
       // Generar la señal
       int32_t volt = signal ? AMPLITUDE_MV : -AMPLITUDE_MV; // Selecciona alto o bajo en mV
-      channelData[0] = mv_to_digital(volt);
+      channelData = mv_to_digital(volt);
       signal=!signal;
-      if ((channelData[0]>> 23) & 1) { 
-         channelData[0] = (~(channelData[0]) + 1);
-         channelData[0] &= 0xAAFFFFFF;
-         channelData[0] |= 0x00800000;         
+      if ((channelData>> 23) & 1) { 
+         channelData = (~(channelData) + 1);
+         channelData &= 0xAAFFFFFF;
+         channelData |= 0x00800000;         
       } else {
-         channelData[0] |= 0xAA000000;
+         channelData |= 0xAA000000;
       }
-      UART_Send(&channelData[currentChannel-5],4);
+      UART_Send(&channelData,4);
+      for (int i = 0; i < CLOCK_CYCLES_PER_STATE; i++) {
+         // Esperar un ciclo de reloj (esta función depende de tu microcontrolador)
+         __asm__ volatile ("nop"); // Ejemplo: instrucción NOP (no-operation)
+      }
    }
 }
-void generate_triangle_wave(uint32_t *channelData) {
+void generate_triangle_wave(uint32_t channelData) {
     // Recorre las muestras en un patrón cíclico
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < 10000; i++) {
         // Índice dentro del ciclo (asegurando uniformidad)
         int sample_in_cycle = i % SAMPLES_PER_CYCLE;
         // Calcula el valor de la señal triangular
@@ -273,17 +282,17 @@ void generate_triangle_wave(uint32_t *channelData) {
             volt = AMPLITUDE_MV - (2 * AMPLITUDE_MV * (sample_in_cycle - SAMPLES_PER_CYCLE / 2)) / (SAMPLES_PER_CYCLE / 2);
         }
         // Convierte el voltaje a digital
-        channelData[0] = mv_to_digital(volt);
+        channelData = mv_to_digital(volt);
         // Procesa los datos según tu formato
-        if ((channelData[0] >> 23) & 1) {
-            channelData[0] = (~(channelData[0]) + 1);
-            channelData[0] &= 0xAAFFFFFF;
-            channelData[0] |= 0x00800000;
+        if ((channelData >> 23) & 1) {
+            channelData = (~(channelData) + 1);
+            channelData &= 0xAAFFFFFF;
+            channelData |= 0x00800000;
         } else {
-            channelData[0] |= 0xAA000000;
+            channelData |= 0xAA000000;
         }
 
         // Envía los datos por UART
-        UART_Send(&channelData[0], 4);
+        UART_Send(&channelData, 4);
     }
  }
