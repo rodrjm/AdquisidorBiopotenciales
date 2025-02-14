@@ -2,9 +2,10 @@
 #define GPIO_H_
 
 #include "lpc_types.h"
+#include "board.h"
 
 /** @defgroup Libreria GPIO
- *  @ingroup "Adquisidor de señales biopotenciales"
+ *  @ingroup "Adquisidor de senales biopotenciales"
  *  Driver para controlar los puertos GPIO
  */
 
@@ -41,7 +42,7 @@
 /**
  * @brief Inicializar puerto GPIO
  */
-void GPIO_init();
+void GPIO_Init();
 
 
 /**
@@ -95,5 +96,33 @@ void GPIO_setPinToggle(uint8_t port, uint8_t pin);
 
 void setLed(uint8_t port, uint8_t pin, bool state);
 
+void GPIO_displayOFF();
 
+void GPIO_displayON();
+
+void GPIO_displayCurrentChannel(uint8_t currentChannel);
+
+void GPIO_displayCurrentkSPS(uint8_t current_kSPS);
+
+void GPIO_displayCurrentMode(uint8_t currentMode);
+
+void GPIO_setBoardLEDs_channel(uint8_t aux);
+
+void GPIO_setBoardLEDs_kSPS(uint8_t aux);
+
+void GPIO_setBoardLEDs_mode(uint8_t aux);
+
+void GPIO_stopped(uint8_t currentChannel);
+
+void GPIO_selectChannel(uint8_t currentChannel);
+
+void GPIO_select_kSPS(uint8_t current_kSPS);
+
+void GPIO_selectMode(uint8_t currentMode);
+
+void GPIO_start(uint8_t currentChannel);
+
+// void GPIO_getSignal(uint32_t channelData,uint32_t *min, uint32_t *max);
+
+void GPIO_getSignal(uint32_t channelData);
 #endif /* GPIO_H_ */

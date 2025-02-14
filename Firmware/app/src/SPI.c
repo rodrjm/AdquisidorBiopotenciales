@@ -10,7 +10,7 @@
 /**
  	 * @brief Inicializacion del modulo SPI
 */
-void SPI_init()
+void SPI_Init()
 {
 
 	Chip_SSP_Init(LPC_SSP); // Selecciona el modulo a inicializar
@@ -34,7 +34,7 @@ void SPI_deInit()
 /**
  	 * @brief Configuracion del formato y los datos del modulo SPI
 */
-void SPI_setup()
+void SPI_Setup()
 {
 	static SSP_ConfigFormat ssp_format;
 	ssp_format.frameFormat = SSP_FRAMEFORMAT_SPI; // Configura el modulo con el protocolo SPI

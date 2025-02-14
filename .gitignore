@@ -5,3 +5,8 @@
 *.bin
 *.elf
 *.lst
+
+# Archivos del entorno virtual de Python
+**/.venv
+**/venv
+**/-venv

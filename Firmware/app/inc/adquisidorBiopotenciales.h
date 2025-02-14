@@ -1,9 +1,9 @@
-#ifndef _BIOPOTENCIALES_H_
-#define _BIOPOTENCIALES_H_
+#ifndef ADQUISIDOR_BIOPOTENCIALES_H_
+#define ADQUISIDOR_BIOPOTENCIALES_H_
 
 
 /*==================[inclusions]=============================================*/
-#include "Drv_Devices.h"
+#include "funcionamiento.h"
 #include "GPIO.h"
 #include "ADS131E08.h"
 
@@ -36,4 +36,4 @@ int main(void);
 
 /** @} doxygen end group definition */
 /*==================[end of file]============================================*/
-#endif /* #ifndef _BIOPOTENCIALES_H_ */
+#endif /* #ifndef ADQUISIDOR_BIOPOTENCIALES_H_ */

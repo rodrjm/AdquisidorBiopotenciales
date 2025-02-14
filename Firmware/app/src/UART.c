@@ -10,7 +10,7 @@
 /**
  	 *  @brief Configuracion inicial e inicializacion de UART
 */
-void UART_setup()
+void UART_Init()
 {
 	Chip_UART_Init(UART_SELECTION);
 	Chip_UART_SetBaud(UART_SELECTION, BAUD_RATE);
@@ -35,7 +35,7 @@ void UART_DeInit ()
  	 * @param data[] Arreglo de datos a enviar
  	 * @param numByte Numero de bytes a enviar
 */
-void UART_Send(int data[], int numBytes)
+void UART_Send(uint32_t data[], int numBytes)
 {
 	Chip_UART_SendBlocking(UART_SELECTION, data, numBytes);
 }

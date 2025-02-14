@@ -1,4 +1,4 @@
-APP=biopotenciales
+APP=adquisidorBiopotenciales
 
 MODULES=app lpc_chip_43xx lpc_board_ciaa_edu_4337
 DEFINES=CORE_M4 __USE_LPCOPEN __USE_NEWLIB
