@@ -1,143 +1,162 @@
 /*
- 	 * GPIO.c
-*/
+ * GPIO.c
+ *
+ * Descripción: Implementación de funciones para la configuración y control de GPIO en la placa EDU-CIAA-NXP.
+ * Este módulo proporciona funciones para inicializar, desinicializar, configurar pines, controlar LEDs y mostrar información a través de LEDs.
+ */
 
-#include "GPIO.h"
-#include "UART.h"
-#include "ADS131E08.h"
-#include "board_api.h"
-#include "chip.h"
-#include <stdlib.h>
 
-uint8_t LED_ARRAY[10] = {LED1_PORT,LED1_PIN};
+#include "GPIO.h"      // Incluye el archivo de encabezado GPIO.h, que contiene las definiciones de las funciones y constantes.
+#include "UART.h"      // Incluye el archivo de encabezado UART.h para depuración o comunicación de errores.
+#include "ADS131E08.h"  // Incluye el archivo de encabezado ADS131E08.h para interactuar con el sensor.
+#include "board_api.h"  // Incluye el archivo de encabezado board_api.h, que proporciona funciones para controlar LEDs de la placa.
+#include "chip.h"     // Incluye el archivo de encabezado chip.h, que proporciona acceso a las funciones de bajo nivel del microcontrolador.
+#include <stdlib.h>  // Incluye el archivo de encabezado stdlib.h.
+
+uint8_t LED_ARRAY[10] = {LED1_PORT, LED1_PIN};  // Inicializa un arreglo con los puertos y pines de los LEDs.
 
 
 /**
- 	 * @brief Inicializar puerto GPIO
-*/
+ * @brief Inicialización del puerto GPIO.
+ *
+ * Esta función inicializa el puerto GPIO y configura los pines necesarios para el proyecto, incluyendo pines para el sensor ADS131E08 y LEDs.
+ */
 void GPIO_Init()
 {
-	/* Configuracion del puerto GPIO */
-	Chip_GPIO_Init(LPC_GPIO_PORT);
+   /* Configuración del puerto GPIO. */
+   Chip_GPIO_Init(LPC_GPIO_PORT);
 
-	/* Mapeo de los pines del puerto GPIO */
+   /* Mapeo de los pines del puerto GPIO. */
 
-   /* TRUE (1) para salida, FALSE (0) para entrada */
-   Chip_SCU_PinMux(4,5,MD_PUP|MD_EZI|MD_ZI,FUNC0); // Mapeo GPIO2[5] en P4_5  RESET	-------- PIN LCD2 ----------
-   Chip_GPIO_SetPinDIR(LPC_GPIO_PORT,2,5,1);		// Establecer RESET como Salida
-   Chip_SCU_PinMux(4,8,MD_PUP|MD_EZI|MD_ZI,FUNC0);  // Mapeo GPIO5[12] en P4_8    PWDN/	-------- PIN LCD_RS ----------
-   Chip_GPIO_SetPinDIR(LPC_GPIO_PORT,5,12,1);		// Establecer PWDN como Salida
-   Chip_SCU_PinMux(4,10,MD_PUP|MD_EZI|MD_ZI,FUNC4);  // Mapeo GPIO5[14] en P4_10    DRDY/	-------- PIN LCD4 ----------
-   Chip_GPIO_SetPinDIR(LPC_GPIO_PORT,5,14,0);		// Establecer DRDY como Entrada
-   Chip_SCU_PinMux(1,20,MD_PUP|MD_EZI|MD_ZI,FUNC0); // Mapeo GPIO0[15] en P1_20   CS/	-------- PIN ENET_TXD1 ----------
-   Chip_GPIO_SetPinDIR(LPC_GPIO_PORT,0,15,1);		// Establecer CS como Salida
-   //-------------------- PIN UTILIZADO PARA DEBUG	----------------------------------
-   Chip_SCU_PinMux(4,9,MD_PUP|MD_EZI|MD_ZI,FUNC4);  								  //-------- PIN LCD_EN ----------
-   Chip_GPIO_SetPinDIR(LPC_GPIO_PORT,5,13,1);
-   //				-------------------------------------------------------------------
+   /* TRUE (1) para salida, FALSE (0) para entrada. */
+   Chip_SCU_PinMux(4, 5, MD_PUP | MD_EZI | MD_ZI, FUNC0); // Mapeo GPIO2[5] en P4_5 RESET (Salida).      -------- PIN LCD2 ----------
+   Chip_GPIO_SetPinDIR(LPC_GPIO_PORT, 2, 5, 1);        // Establecer RESET como Salida.                  
+   Chip_SCU_PinMux(4, 8, MD_PUP | MD_EZI | MD_ZI, FUNC0); // Mapeo GPIO5[12] en P4_8 PWDN (Salida).      -------- PIN LCD_RS ----------
+   Chip_GPIO_SetPinDIR(LPC_GPIO_PORT, 5, 12, 1);       // Establecer PWDN como Salida.
+   Chip_SCU_PinMux(4, 10, MD_PUP | MD_EZI | MD_ZI, FUNC4); // Mapeo GPIO5[14] en P4_10 DRDY (Entrada).   -------- PIN LCD4 ----------
+   Chip_GPIO_SetPinDIR(LPC_GPIO_PORT, 5, 14, 0);       // Establecer DRDY como Entrada.
+   Chip_SCU_PinMux(1, 20, MD_PUP | MD_EZI | MD_ZI, FUNC0); // Mapeo GPIO0[15] en P1_20 CS (Salida).      -------- PIN ENET_TXD1 ----------
+   Chip_GPIO_SetPinDIR(LPC_GPIO_PORT, 0, 15, 1);       // Establecer CS como Salida.
 
-   /* LEDs */
-   Chip_SCU_PinMux(4,4,MD_PUP|MD_EZI|MD_ZI,FUNC0); // Mapeo GPIO2[4] en P4_4   LED1/	-------- PIN LCD1 ----------
-   Chip_GPIO_SetPinDIR(LPC_GPIO_PORT,2,4,1);		// Establecer LED1 como Salida
-   Chip_SCU_PinMux(6,4,MD_PUP|MD_EZI|MD_ZI,FUNC0); // Mapeo GPIO3[3] en P6_4   LED2/	-------- PIN GPIO1 ----------
-   Chip_GPIO_SetPinDIR(LPC_GPIO_PORT,3,3,1);		// Establecer LED2 como Salida
-   Chip_SCU_PinMux(6,5,MD_PUP|MD_EZI|MD_ZI,FUNC0); // Mapeo GPIO3[4] en P6_5   LED3/	-------- PIN GPIO2 ----------
+   // PIN UTILIZADO PARA DEBUG.
+   Chip_SCU_PinMux(4, 9, MD_PUP | MD_EZI | MD_ZI, FUNC4); // PIN LCD_EN (Salida).
+   Chip_GPIO_SetPinDIR(LPC_GPIO_PORT, 5, 13, 1);
+
+   /* LEDs. */
+   Chip_SCU_PinMux(4, 4, MD_PUP | MD_EZI | MD_ZI, FUNC0); // Mapeo GPIO2[4] en P4_4 LED1 (Salida). -------- PIN LCD1 ----------
+   Chip_GPIO_SetPinDIR(LPC_GPIO_PORT, 2, 4, 1);  // Establecer LED1 como Salida.
+   Chip_SCU_PinMux(6,4,MD_PUP|MD_EZI|MD_ZI,FUNC0); // Mapeo GPIO3[3] en P6_4 LED2 (Salida).	      -------- PIN GPIO1 ----------
+   Chip_GPIO_SetPinDIR(LPC_GPIO_PORT,3,3,1);		// Establecer LED2 como Salida.
+   Chip_SCU_PinMux(6,5,MD_PUP|MD_EZI|MD_ZI,FUNC0); // Mapeo GPIO3[4] en P6_5 LED3 (Salida).        -------- PIN GPIO2 ----------
    Chip_GPIO_SetPinDIR(LPC_GPIO_PORT,3,4,1);		// Establecer LED3 como Salida
-   Chip_SCU_PinMux(6,1,MD_PUP|MD_EZI|MD_ZI,FUNC0); // Mapeo GPIO3[0] en P6_1   LED4/	-------- PIN GPIO0 ----------
+   Chip_SCU_PinMux(6,1,MD_PUP|MD_EZI|MD_ZI,FUNC0); // Mapeo GPIO3[0] en P6_1 LED4 (Salida).	      -------- PIN GPIO0 ----------
    Chip_GPIO_SetPinDIR(LPC_GPIO_PORT,3,0,1);		// Establecer LED4 como Salida
-   Chip_SCU_PinMux(4,0,MD_PUP|MD_EZI|MD_ZI,FUNC0); // Mapeo GPIO2[0] en P4_0   LED5/	-------- PIN TFIL0 ----------
+   Chip_SCU_PinMux(4,0,MD_PUP|MD_EZI|MD_ZI,FUNC0); // Mapeo GPIO2[0] en P4_0 LED5 (Salida).        -------- PIN TFIL0 ----------
    Chip_GPIO_SetPinDIR(LPC_GPIO_PORT,2,0,1);		// Establecer LED5 como Salida
-   Chip_SCU_PinMux(7,4,MD_PUP|MD_EZI|MD_ZI,FUNC0); // Mapeo GPIO3[12] en P7_4   LED6/	-------- PIN TCOL1 ----------
+   Chip_SCU_PinMux(7,4,MD_PUP|MD_EZI|MD_ZI,FUNC0); // Mapeo GPIO3[12] en P7_4 LED6 (Salida).       -------- PIN TCOL1 ----------
    Chip_GPIO_SetPinDIR(LPC_GPIO_PORT,3,12,1);		// Establecer LED6 como Salida
-   Chip_SCU_PinMux(3,2,MD_PUP|MD_EZI|MD_ZI,FUNC4); // Mapeo GPIO5[9] en P3_2   LED7/	-------- PIN CAN_TD ----------
+   Chip_SCU_PinMux(3,2,MD_PUP|MD_EZI|MD_ZI,FUNC4); // Mapeo GPIO5[9] en P3_2 LED7 (Salida).        -------- PIN CAN_TD ----------
    Chip_GPIO_SetPinDIR(LPC_GPIO_PORT,5,9,1);		// Establecer LED7 como Salida
-   Chip_SCU_PinMux(3,1,MD_PUP|MD_EZI|MD_ZI,FUNC4); // Mapeo GPIO5[8] en P3_1   LED8/	-------- PIN CAN_RD ----------
+   Chip_SCU_PinMux(3,1,MD_PUP|MD_EZI|MD_ZI,FUNC4); // Mapeo GPIO5[8] en P3_1 LED8 (Salida).	      -------- PIN CAN_RD ----------
    Chip_GPIO_SetPinDIR(LPC_GPIO_PORT,5,8,1);		// Establecer LED8 como Salida
-   Chip_SCU_PinMux(2,3,MD_PUP|MD_EZI|MD_ZI,FUNC4); // Mapeo GPIO5[3] en P2_3   LED9/	-------- PIN RS232_TX ----------
+   Chip_SCU_PinMux(2,3,MD_PUP|MD_EZI|MD_ZI,FUNC4); // Mapeo GPIO5[3] en P2_3 LED9 (Salida).        -------- PIN RS232_TX ----------
    Chip_GPIO_SetPinDIR(LPC_GPIO_PORT,5,3,1);		// Establecer LED9 como Salida
-   Chip_SCU_PinMux(2,4,MD_PUP|MD_EZI|MD_ZI,FUNC4); // Mapeo GPIO5[4] en P2_4   LED10/	-------- PIN RS232_RX ----------
+   Chip_SCU_PinMux(2,4,MD_PUP|MD_EZI|MD_ZI,FUNC4); // Mapeo GPIO5[4] en P2_4 LED10 (Salida).       -------- PIN RS232_RX ----------
    Chip_GPIO_SetPinDIR(LPC_GPIO_PORT,5,4,1);		// Establecer LED10 como Salida
-   
-   
-   /*	Chip_SCU_PinMux(4,8,MD_PUP|MD_EZI|MD_ZI,FUNC4);  // Mapeo GPIO5[12] en P4_8   CLK
-   		Chip_GPIO_SetPinDIR(LPC_GPIO_PORT,5,12,1);
-		Chip_SCU_PinMux(4,8,MD_PUP|MD_EZI|MD_ZI,FUNC4);  // Mapeo GPIO5[12] en P4_8   START
-		Chip_GPIO_SetPinDIR(LPC_GPIO_PORT,5,12,1);
-	*/
 }
 
 
 /**
- 	 * @brief Desinicializacion del puerto GPIO
-*/
+ * @brief Desinicialización del puerto GPIO.
+ *
+ * Esta función desinicializa el puerto GPIO, liberando los recursos utilizados.
+ */
 void GPIO_deInit()
 {
-	Chip_GPIO_DeInit(LPC_GPIO_PORT);
+   Chip_GPIO_DeInit(LPC_GPIO_PORT);
 }
 
 
 /**
- * @brief Establece el estado de un pin GPIO
- * @param port Numero del puerto GPIO 
- * @param pin Numero del pin GPIO
- * @param state TRUE para establecerlo en alto, FALSE para establecerlo el bajo
+ * @brief Establece el estado de un pin GPIO.
+ *
+ * @param port Número del puerto GPIO.
+ * @param pin Número del pin GPIO.
+ * @param state TRUE para establecerlo en alto, FALSE para establecerlo en bajo.
  */
 void GPIO_setPinState(uint8_t port, uint8_t pin, bool state)
 {
-	Chip_GPIO_SetPinState(LPC_GPIO_PORT,port, pin, state);
+   Chip_GPIO_SetPinState(LPC_GPIO_PORT, port, pin, state);
 }
 
 
 /**
- * @brief Obtener el estado de un pin GPIO
- * @param port Numero del puerto GPIO 
- * @param pin Numero del pin GPIO
- * @return TRUE si el pin esta en alto, FALSE si esta en bajo
+ * @brief Obtiene el estado de un pin GPIO.
+ *
+ * @param port Número del puerto GPIO.
+ * @param pin Número del pin GPIO.
+ * @return TRUE si el pin está en alto, FALSE si está en bajo.
  */
 bool GPIO_getPinState(uint8_t port, uint8_t pin)
 {
-	return Chip_GPIO_GetPinState(LPC_GPIO_PORT, port, pin);
+   return Chip_GPIO_GetPinState(LPC_GPIO_PORT, port, pin);
 }
 
 
 /**
- * @brief Establece la direccion de un pin GPIO
- * @param port Numero del puerto GPIO
- * @param pin Numero del pin GPIO
- * @param output: TRUE para salida, FALSE para entrada
+ * @brief Establece la dirección de un pin GPIO.
+ *
+ * @param port Número del puerto GPIO.
+ * @param pin Número del pin GPIO.
+ * @param output TRUE para salida, FALSE para entrada.
  */
 void GPIO_setPinDir(uint8_t port, uint8_t pin, bool output)
 {
-	Chip_GPIO_SetPinDIR(LPC_GPIO_PORT, port, pin, output);
+   Chip_GPIO_SetPinDIR(LPC_GPIO_PORT, port, pin, output);
 }
 
 
 /**
- * @brief Obtener la direccion de un pin GPIO
- * @param port Numero del puerto GPIO
- * @param pin Numero del pin GPIO
- * @return TRUE si esta como salida, FALSE si esta como entrada
+ * @brief Obtiene la dirección de un pin GPIO.
+ *
+ * @param port Número del puerto GPIO.
+ * @param pin Número del pin GPIO.
+ * @return TRUE si está configurado como salida, FALSE si está configurado como entrada.
  */
 bool GPIO_getPinDir(uint8_t port, uint8_t pin)
 {
-	return Chip_GPIO_GetPinDIR(LPC_GPIO_PORT, port, pin);
+   return Chip_GPIO_GetPinDIR(LPC_GPIO_PORT, port, pin);
 }
 
 
 /**
- * @brief Alterna un pin GPIO al estado opuesto
- * @param port Numero del puerto GPIO
- * @param pin Numero del pin GPIO
+ * @brief Alterna el estado de un pin GPIO al estado opuesto.
+ *
+ * @param port Número del puerto GPIO.
+ * @param pin Número del pin GPIO.
  */
 void GPIO_setPinToggle(uint8_t port, uint8_t pin)
 {
-	Chip_GPIO_SetPinToggle(LPC_GPIO_PORT, port, pin);
+   Chip_GPIO_SetPinToggle(LPC_GPIO_PORT, port, pin);
 }
 
-void setLed(uint8_t port,uint8_t pin,bool state){
-   Chip_GPIO_SetPinState(LPC_GPIO_PORT, port, pin,!state);
+
+/**
+ * @brief Establece el estado de un LED.
+ *
+ * @param port Número del puerto GPIO del LED.
+ * @param pin Número del pin GPIO del LED.
+ * @param state TRUE para apagar el LED, FALSE para encender el LED.
+ */
+void setLed(uint8_t port, uint8_t pin, bool state)
+{
+   Chip_GPIO_SetPinState(LPC_GPIO_PORT, port, pin, !state);
 }
 
+
+/**
+ * @brief Apaga todos los LEDs.
+ */
 void GPIO_displayOFF() {
    setLed(LED1_PORT,LED1_PIN, true);
    setLed(LED2_PORT,LED2_PIN, true);
@@ -151,6 +170,10 @@ void GPIO_displayOFF() {
    setLed(LED10_PORT,LED10_PIN, true);
 }
 
+
+/**
+ * @brief Enciende todos los LEDs.
+ */
 void GPIO_displayON() {
    setLed(LED1_PORT,LED1_PIN, false);
    setLed(LED2_PORT,LED2_PIN, false);
@@ -164,6 +187,12 @@ void GPIO_displayON() {
    setLed(LED10_PORT,LED10_PIN, false);
 }
 
+
+/**
+ * @brief Muestra el canal actual a través de LEDs.
+ *
+ * @param currentChannel Número del canal actual.
+ */
 void GPIO_displayCurrentChannel(uint8_t currentChannel) {
    switch (currentChannel)
    {
@@ -214,6 +243,12 @@ void GPIO_displayCurrentChannel(uint8_t currentChannel) {
    }
 }
 
+
+/**
+ * @brief Muestra la frecuencia de muestreo actual (kSPS) a través de LEDs.
+ *
+ * @param current_kSPS Frecuencia de muestreo actual.
+ */
 void GPIO_displayCurrentkSPS(uint8_t current_kSPS) {
    switch (current_kSPS)
    {
@@ -247,6 +282,12 @@ void GPIO_displayCurrentkSPS(uint8_t current_kSPS) {
    }
 }
 
+
+/**
+ * @brief Muestra el modo actual a través de LEDs.
+ *
+ * @param currentMode Modo actual.
+ */
 void GPIO_displayCurrentMode(uint8_t currentMode) {
    switch (currentMode)
    {
@@ -265,6 +306,12 @@ void GPIO_displayCurrentMode(uint8_t currentMode) {
    }
 }
 
+
+/**
+ * @brief Configura los LEDs de la placa para mostrar el canal actual.
+ *
+ * @param aux Número del canal actual.
+ */
 void GPIO_setBoardLEDs_channel(uint8_t aux) {
    switch (aux)
    {
@@ -329,6 +376,12 @@ void GPIO_setBoardLEDs_channel(uint8_t aux) {
    }
 }
 
+
+/**
+ * @brief Configura los LEDs de la placa para mostrar la frecuencia de muestreo actual (kSPS).
+ *
+ * @param aux Frecuencia de muestreo actual (kSPS).
+ */
 void GPIO_setBoardLEDs_kSPS(uint8_t aux) {
    switch (aux)
    {
@@ -386,6 +439,12 @@ void GPIO_setBoardLEDs_kSPS(uint8_t aux) {
    }
 }
 
+
+/**
+ * @brief Configura los LEDs de la placa para mostrar el modo actual.
+ *
+ * @param aux Modo actual.
+ */
 void GPIO_setBoardLEDs_mode(uint8_t aux) {
    switch (aux)
    {
@@ -408,6 +467,12 @@ void GPIO_setBoardLEDs_mode(uint8_t aux) {
    }
 }
 
+
+/**
+ * @brief Configura los LEDs para indicar que el sistema está detenido.
+ *
+ * @param currentChannel Canal actual.
+ */
 void GPIO_stopped(uint8_t currentChannel) {
    GPIO_displayOFF();
    GPIO_displayCurrentChannel(currentChannel);
@@ -417,6 +482,12 @@ void GPIO_stopped(uint8_t currentChannel) {
    GPIO_setBoardLEDs_channel(currentChannel);
 }
 
+
+/**
+ * @brief Configura los LEDs para indicar la selección del canal.
+ *
+ * @param currentChannel Canal seleccionado.
+ */
 void GPIO_selectChannel(uint8_t currentChannel) {
    GPIO_displayOFF();
    GPIO_displayCurrentChannel(currentChannel);
@@ -426,6 +497,12 @@ void GPIO_selectChannel(uint8_t currentChannel) {
    GPIO_setBoardLEDs_channel(currentChannel);
 }
 
+
+/**
+ * @brief Configura los LEDs para indicar la selección de la frecuencia de muestreo (kSPS).
+ *
+ * @param current_kSPS Frecuencia de muestreo seleccionada (kSPS).
+ */
 void GPIO_select_kSPS(uint8_t current_kSPS) {
    GPIO_displayOFF();
    GPIO_displayCurrentkSPS(current_kSPS);
@@ -435,6 +512,12 @@ void GPIO_select_kSPS(uint8_t current_kSPS) {
    GPIO_setBoardLEDs_kSPS(current_kSPS);
 }
 
+
+/**
+ * @brief Configura los LEDs para indicar la selección del modo.
+ *
+ * @param currentMode Modo seleccionado.
+ */
 void GPIO_selectMode(uint8_t currentMode) {
    GPIO_displayOFF();
    GPIO_displayCurrentMode(currentMode);
@@ -444,6 +527,10 @@ void GPIO_selectMode(uint8_t currentMode) {
    GPIO_setBoardLEDs_mode(currentMode);
 }
 
+
+/**
+ * @brief Configura los LEDs para indicar que el sistema está en funcionamiento.
+ */
 void GPIO_start(uint8_t currentChannel) {
    GPIO_displayOFF();
    Board_LED_Set(LED_RED, true);
@@ -451,56 +538,12 @@ void GPIO_start(uint8_t currentChannel) {
    Board_LED_Set(LED_BLUE, true);
 }
 
-/*
-void GPIO_getSignal(uint32_t channelData, uint32_t *min, uint32_t *max) {
-   GPIO_displayOFF();
-   if (channelData > *max) {
-      *max = channelData;
-   }else
-   if (channelData < *min) {
-      *min = channelData;
-   }
-   uint32_t rango = 0x7FFFFF;
-   if ((*min != 0x7FFFFF) && (*max != 0x000000)) {
-      if (*min < 0x0000000) {
-         rango = *max - (-*min);
-      } else {
-         rango = *max - *min;
-      }
-   }
-   if (channelData >= *max) {
-      setLed(LED10_PORT,LED10_PIN, false);
-   }
-   if (channelData > ((rango*8/9) + *min)) {
-      setLed(LED9_PORT,LED9_PIN, false);
-   }
-   if (channelData > ((rango*7/9) + *min)) {
-      setLed(LED8_PORT,LED8_PIN, false);
-   }
-   if (channelData > ((rango*6/9) + *min)) {
-      setLed(LED7_PORT,LED7_PIN, false);
-   }
-   if (channelData > ((rango*5/9) + *min)) {
-      setLed(LED6_PORT,LED6_PIN, false);
-   }
-   if (channelData > ((rango*4/9) + *min)) {
-      setLed(LED5_PORT,LED5_PIN, false);
-   }
-   if (channelData > ((rango*3/9) + *min)) {
-      setLed(LED4_PORT,LED4_PIN, false);
-   }
-   if (channelData > ((rango*2/9) + *min)) {
-      setLed(LED3_PORT,LED3_PIN, false);
-   }
-   if (channelData > ((rango*1/9) + *min)) {
-      setLed(LED2_PORT,LED2_PIN, false);
-   }
-   if (channelData >= (*min)) {
-      setLed(LED1_PORT,LED1_PIN, false);
-   }
-}
-*/
 
+/**
+ * @brief Muestra el valor de la señal a través de LEDs.
+ *
+ * @param channelData Valor de la señal del canal.
+ */
 void GPIO_getSignal(uint32_t channelData) {
    GPIO_displayOFF();
    uint8_t negativo = 0;

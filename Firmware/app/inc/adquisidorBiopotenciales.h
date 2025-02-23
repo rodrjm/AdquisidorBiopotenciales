@@ -2,38 +2,26 @@
 #define ADQUISIDOR_BIOPOTENCIALES_H_
 
 
-/*==================[inclusions]=============================================*/
-#include "funcionamiento.h"
-#include "GPIO.h"
-#include "ADS131E08.h"
+#include "funcionamiento.h" // Incluye el encabezado para la lógica de funcionamiento del sistema.
+#include "GPIO.h" // Incluye el encabezado para el manejo de los GPIO.
+#include "ADS131E08.h" // Incluye el encabezado para el manejo del ADS131E08.
 
 
-
-/*==================[cplusplus]==============================================*/
-
-#ifdef __cplusplus
-extern "C" {
+#ifdef __cplusplus // Si se está compilando con un compilador de C++:
+extern "C" { // Asegura que las funciones declaradas se compilen con enlace C.
 #endif
 
-/*==================[macros]=================================================*/
 
-/*==================[typedef]================================================*/
-
-/*==================[external data declaration]==============================*/
-
-/*==================[external functions declaration]=========================*/
-
-/** @brief main function
- * @return main function should never return
+/**
+ * @brief Función principal del programa.
+ * @return La función principal nunca debería retornar.
  */
-int main(void);
+int main(void); // Declara el prototipo de la función principal 'main'.
 
-/*==================[cplusplus]==============================================*/
 
-#ifdef __cplusplus
-}
+#ifdef __cplusplus // Si se está compilando con un compilador de C++:
+} // Cierra el bloque 'extern "C"'.
 #endif
 
-/** @} doxygen end group definition */
-/*==================[end of file]============================================*/
+
 #endif /* #ifndef ADQUISIDOR_BIOPOTENCIALES_H_ */
